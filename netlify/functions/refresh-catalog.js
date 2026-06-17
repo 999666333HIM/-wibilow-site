@@ -40,18 +40,7 @@ exports.handler = async function () {
     console.log('DEBUG token present:', !!process.env.NETLIFY_BLOBS_TOKEN);
     console.log('DEBUG siteID value (first 6 chars):', (process.env.NETLIFY_SITE_ID || '').slice(0, 6));
 
-  const store = getStore({
-      name: 'wibilow-catalog',
-      siteID: process.env.NETLIFY_SITE_ID,
-      token: process.env.NETLIFY_BLOBS_TOKEN,
-    });
-
-    try {
-      await store.set('test-key', 'hello world');
-      console.log('DEBUG: simple test write SUCCEEDED');
-    } catch (testErr) {
-      console.log('DEBUG: simple test write FAILED:', testErr.message);
-    }
+ const store = getStore({ name: 'wibilow-catalog' });
 
     let runIndex = 0;
     try {
