@@ -141,7 +141,7 @@
       "lastUpdated": "2026-06-17T17:02:31.866Z"
     }
   ],
-  "__runIndex": 2,
+  "__runIndex": 3,
   "air fryer": [
     {
       "id": "air-fryer-0",
@@ -282,6 +282,148 @@
       "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcT7ASsRJyhkDmWGqDRDt0ypEGn13_MYueOyujHxunKMcrfK3brnFFx3Q6V9izIkWvLw0YP9SFl7evRtGJkqAeKTtx-0idu0o7xkBYo7O0gLYMNBBpEIKyed",
       "stock": 38,
       "lastUpdated": "2026-06-17T17:06:19.230Z"
+    }
+  ],
+  "running shoes": [
+    {
+      "id": "running-shoes-0",
+      "name": "NIKE Women's Run Swift 3 Running Shoes",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 70,
+      "rating": 4.6,
+      "reviews": 369,
+      "hot": true,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://serpapi.com/searches/6a32d8b427714367834da635/images/FtvhJjZOT9ByRpofhfCey5tgGcgmZ4GrBhD9LJFcYxg.webp",
+      "stock": 7,
+      "lastUpdated": "2026-06-17T17:26:15.136Z"
+    },
+    {
+      "id": "running-shoes-1",
+      "name": "Nike Men's Free Run 5.0 Running Shoes",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 87,
+      "rating": 4.5,
+      "reviews": 1200,
+      "hot": true,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR_JT6EbSV6Rs5R6MxR1AABKFi7RlH2zjjAWd_YiBHRCJqJA-8EQeidLFYi14wdo9ZYlWMccrHomwXy4WhZZBg3ulGCrVO-MkFawAQFgwUKp1wx_UMO_Jl1jw",
+      "stock": 3,
+      "lastUpdated": "2026-06-17T17:26:15.138Z"
+    },
+    {
+      "id": "running-shoes-2",
+      "name": "Nike Men's Pegasus 42",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 148,
+      "rating": 4.7,
+      "reviews": 159,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSxDoOUkWOFDoTYIItuU3rX61Ifs2M4zkwHg35TcswMliq2m_iDFWjZsIHK6YjNQAjIjuzAda6QXfRWpILQzHadppwtovPl3o-K9CIt1p_Fu6edqtTa_ijetg",
+      "stock": 6,
+      "lastUpdated": "2026-06-17T17:26:15.138Z"
+    },
+    {
+      "id": "running-shoes-3",
+      "name": "New Balance Women's Fresh Foam X 880v15",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 153,
+      "rating": 4.4,
+      "reviews": 987,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQRrAiCKlhiDYy_ohI56ZhW70m6Natw1mgyy0S_-XK7WpZ0Bra6OgHWbVVoSOaQ22T-w3sVcBrN7gYrg7_pU2N7xhs8oDURSGksWUMCIa3N3CGpC8SQgeLb",
+      "stock": 12,
+      "lastUpdated": "2026-06-17T17:26:15.138Z"
+    },
+    {
+      "id": "running-shoes-4",
+      "name": "ASICS Women's Gel-Excite 11 Running Shoes",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 92,
+      "rating": 4.6,
+      "reviews": 1000,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSrJKGGHZEaopNT2_dSEo1y5vEgiWWoMvwn4zqw0eNZxHg7-rkgrxaXv4un_eBCK0-AICPBKuAxCkG85SkeM9nA_Vovp3btuhcQoWJBaJxk0dc6wkUEDXqn",
+      "stock": 14,
+      "lastUpdated": "2026-06-17T17:26:15.139Z"
+    },
+    {
+      "id": "running-shoes-5",
+      "name": "Brooks Men's Anthem 8 Running Shoes",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 92,
+      "rating": 4.4,
+      "reviews": 29,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://serpapi.com/searches/6a32d8b427714367834da635/images/FtvhJjZOT9ByRpofhfCey3fql1DMsakARi3S9sL6Z50.webp",
+      "stock": 29,
+      "lastUpdated": "2026-06-17T17:26:15.139Z"
+    },
+    {
+      "id": "running-shoes-6",
+      "name": "Hoka Women's Clifton 10",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 127,
+      "rating": 4.6,
+      "reviews": 7600,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://serpapi.com/searches/6a32d8b427714367834da635/images/FtvhJjZOT9ByRpofhfCey9WD7ZKCodR4lbwCyTMorlo.webp",
+      "stock": 13,
+      "lastUpdated": "2026-06-17T17:26:15.139Z"
+    },
+    {
+      "id": "running-shoes-7",
+      "name": "New Balance Men's 1080v15",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 174,
+      "rating": 4.5,
+      "reviews": 807,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://serpapi.com/searches/6a32d8b427714367834da635/images/FtvhJjZOT9ByRpofhfCey5sUHJjOxMBeWWkndTVTSBA.webp",
+      "stock": 8,
+      "lastUpdated": "2026-06-17T17:26:15.139Z"
+    },
+    {
+      "id": "running-shoes-8",
+      "name": "New Balance Men's Ellipse v1",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 148,
+      "rating": 4.6,
+      "reviews": 408,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT2Hab2OH4i0RSHQ_SPFOnzIFi61Hcv7qPHJe4arwL4dbHMRvT_8NI1b3ZZmYX7jsohopWDKjJPSgq-2BJM6cQjIHWN6LvaQvgFiv_EQT-Ms1-I3CdIF4hf",
+      "stock": 24,
+      "lastUpdated": "2026-06-17T17:26:15.139Z"
+    },
+    {
+      "id": "running-shoes-9",
+      "name": "Nike Men's Journey Run Running Shoes",
+      "cat": "running shoes",
+      "icon": "👟",
+      "displayPrice": 78,
+      "rating": 4.6,
+      "reviews": 568,
+      "hot": false,
+      "desc": "A top pick for \"running shoes\".",
+      "thumbnail": "https://serpapi.com/searches/6a32d8b427714367834da635/images/FtvhJjZOT9ByRpofhfCey-IdtsMvN8xsoJ_H94O74p0.webp",
+      "stock": 30,
+      "lastUpdated": "2026-06-17T17:26:15.139Z"
     }
   ]
 }
