@@ -612,7 +612,7 @@ function renderProducts(){
       <div class="product-img">
         ${p.hot?'<div class="hot-tag">🔥 Hot</div>':''}
         ${p.rating>=4.8?'<div class="pick-tag">✨ AI Pick</div>':''}
-        ${p.icon}
+        ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;padding:12px;">` : p.icon}
         <div class="viewing-tag"><span class="viewing-dot"></span>${viewers} viewing now</div>
       </div>
       <div class="product-body">
