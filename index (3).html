@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wibilow — Shop Everything</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAFAF8;--plum:#2D1B4E;--coral:#FF6B47;--coral-light:#FFF0EC;
+  --lav:#E8E3F0;--lav2:#C5BAD9;--slate:#6B6280;--white:#fff;
+  --green:#16A34A;--green-light:#DCFCE7;--shadow:0 2px 16px rgba(45,27,78,0.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--plum);font-family:'Nunito',sans-serif;overflow-x:hidden;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,0.96);backdrop-filter:blur(12px);
+  border-bottom:1.5px solid var(--lav);padding:0 48px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.logo{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--plum);text-decoration:none;}
+.logo span{color:var(--coral);}
+.nav-search{flex:1;max-width:480px;display:flex;align-items:center;
+  background:var(--white);border:1.5px solid var(--lav);border-radius:999px;padding:8px 16px;gap:8px;transition:border-color 0.2s;}
+.nav-search:focus-within{border-color:var(--coral);}
+.nav-search input{border:none;outline:none;font-family:'Nunito',sans-serif;font-size:0.9rem;color:var(--plum);background:transparent;width:100%;}
+.nav-search input::placeholder{color:var(--lav2);}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--plum);color:#fff;
+  padding:9px 20px;border-radius:999px;font-size:0.88rem;font-weight:700;cursor:pointer;border:none;transition:background 0.2s;}
+.cart-btn:hover{background:#3D2860;}
+.cart-count{background:var(--coral);color:#fff;width:20px;height:20px;border-radius:50%;
+  font-size:0.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;}
+
+/* HERO */
+.hero-banner{background:var(--plum);color:#fff;padding:48px;display:flex;
+  align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden;}
+.hero-banner::after{content:'';position:absolute;right:-80px;top:-80px;width:320px;height:320px;
+  border-radius:50%;background:rgba(255,107,71,0.1);pointer-events:none;}
+.hero-banner h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.1;margin-bottom:12px;}
+.hero-banner h1 em{color:var(--coral);font-style:italic;}
+.hero-banner p{color:rgba(255,255,255,0.6);font-size:0.95rem;max-width:400px;font-weight:500;}
+.hero-stats{display:flex;gap:32px;margin-top:24px;}
+.hero-stat-val{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--coral);}
+.hero-stat-lbl{font-size:0.72rem;color:rgba(255,255,255,0.45);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+.hero-badges{display:flex;flex-direction:column;gap:12px;flex-shrink:0;}
+.hero-badge{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+  border-radius:16px;padding:16px 20px;text-align:center;min-width:150px;}
+.hero-badge-icon{font-size:1.6rem;margin-bottom:6px;}
+.hero-badge-text{font-size:0.76rem;font-weight:700;color:rgba(255,255,255,0.65);}
+
+/* CAT BAR */
+.cat-bar{display:flex;gap:10px;padding:18px 48px;overflow-x:auto;
+  border-bottom:1.5px solid var(--lav);background:var(--white);}
+.cat-bar::-webkit-scrollbar{display:none;}
+.cat-pill{background:var(--cream);border:1.5px solid var(--lav);padding:7px 16px;border-radius:999px;
+  font-size:0.82rem;font-weight:700;color:var(--slate);cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+.cat-pill:hover,.cat-pill.active{background:var(--plum);color:#fff;border-color:var(--plum);}
+
+/* LAYOUT */
+.main{display:flex;}
+.sidebar{width:230px;flex-shrink:0;padding:24px 20px;border-right:1.5px solid var(--lav);
+  background:var(--white);position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;}
+.filter-section{margin-bottom:24px;}
+.filter-title{font-size:0.75rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate);margin-bottom:12px;}
+.filter-opt{display:flex;align-items:center;gap:10px;margin-bottom:8px;cursor:pointer;}
+.filter-opt input[type=checkbox]{accent-color:var(--coral);width:15px;height:15px;cursor:pointer;}
+.filter-opt label{font-size:0.87rem;font-weight:600;cursor:pointer;}
+.price-range{display:flex;gap:8px;align-items:center;}
+.price-input{width:78px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--lav);
+  font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;color:var(--plum);outline:none;}
+.price-input:focus{border-color:var(--coral);}
+
+/* PRODUCTS */
+.products-area{flex:1;padding:24px 28px;}
+.products-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.products-count{font-size:0.88rem;color:var(--slate);font-weight:600;}
+.sort-select{padding:8px 14px;border-radius:999px;border:1.5px solid var(--lav);
+  font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;color:var(--plum);background:var(--white);cursor:pointer;outline:none;}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;}
+
+/* PRODUCT CARD */
+.product-card{background:var(--white);border:1.5px solid var(--lav);border-radius:20px;
+  overflow:hidden;box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;
+  display:flex;flex-direction:column;cursor:pointer;}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(45,27,78,0.12);}
+.product-img{height:170px;background:var(--cream);display:flex;align-items:center;
+  justify-content:center;font-size:3.8rem;position:relative;}
+.product-img img{width:100%;height:100%;object-fit:contain;padding:12px;}
+.hot-tag{position:absolute;top:10px;right:10px;background:var(--coral);color:#fff;
+  font-size:0.68rem;font-weight:800;padding:4px 10px;border-radius:999px;}
+.deal-tag{position:absolute;top:10px;left:10px;background:var(--green);color:#fff;
+  font-size:0.68rem;font-weight:800;padding:4px 10px;border-radius:999px;}
+.product-body{padding:14px;flex:1;display:flex;flex-direction:column;}
+.product-name{font-size:0.9rem;font-weight:700;color:var(--plum);margin-bottom:6px;line-height:1.35;flex:1;}
+.product-desc{font-size:0.78rem;color:var(--slate);margin-bottom:8px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.product-price{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--plum);margin-bottom:6px;}
+.product-stars{font-size:0.74rem;color:#F59E0B;margin-bottom:12px;}
+.add-btn{width:100%;padding:10px;border-radius:999px;background:var(--coral);color:#fff;border:none;
+  font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:800;cursor:pointer;transition:background 0.2s;}
+.add-btn:hover{background:#e8522e;}
+.add-btn.added{background:var(--green);}
+
+/* CART */
+.cart-overlay{position:fixed;inset:0;background:rgba(45,27,78,0.4);z-index:300;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-drawer{position:fixed;right:0;top:0;bottom:0;width:390px;background:var(--white);
+  z-index:301;transform:translateX(100%);transition:transform 0.3s ease;
+  display:flex;flex-direction:column;box-shadow:-4px 0 40px rgba(45,27,78,0.15);}
+.cart-drawer.open{transform:translateX(0);}
+.cart-head{padding:22px 22px 18px;border-bottom:1.5px solid var(--lav);
+  display:flex;align-items:center;justify-content:space-between;}
+.cart-head h2{font-family:'DM Serif Display',serif;font-size:1.4rem;}
+.cart-close{background:var(--lav);border:none;border-radius:50%;width:36px;height:36px;
+  cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.cart-items{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:12px;}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--slate);}
+.cart-empty-icon{font-size:3rem;margin-bottom:12px;}
+.cart-empty p{font-weight:600;line-height:1.6;}
+.cart-item{display:flex;gap:12px;align-items:center;background:var(--cream);
+  border-radius:14px;padding:12px;border:1.5px solid var(--lav);}
+.cart-item-icon{font-size:1.8rem;width:46px;height:46px;display:flex;align-items:center;
+  justify-content:center;background:var(--white);border-radius:10px;flex-shrink:0;overflow:hidden;}
+.cart-item-icon img{width:100%;height:100%;object-fit:contain;}
+.cart-item-info{flex:1;}
+.cart-item-label{font-size:0.7rem;font-weight:800;color:var(--slate);text-transform:uppercase;letter-spacing:0.06em;}
+.cart-item-name{font-size:0.87rem;font-weight:700;margin-bottom:3px;}
+.cart-item-price{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--coral);}
+.cart-remove{background:none;border:none;color:var(--lav2);cursor:pointer;font-size:1rem;padding:4px;transition:color 0.2s;}
+.cart-remove:hover{color:var(--coral);}
+.cart-foot{padding:18px 22px;border-top:1.5px solid var(--lav);}
+.cart-row{display:flex;justify-content:space-between;font-size:0.87rem;font-weight:600;color:var(--slate);margin-bottom:7px;}
+.cart-row.total{color:var(--plum);font-size:1rem;font-weight:800;padding-top:7px;border-top:1.5px solid var(--lav);margin-top:4px;}
+.cart-row span:last-child{font-family:'DM Serif Display',serif;font-size:1.05rem;}
+.checkout-btn{width:100%;padding:14px;margin-top:14px;background:var(--coral);color:#fff;
+  border:none;border-radius:999px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:background 0.2s;}
+.checkout-btn:hover{background:#e8522e;}
+
+/* TOAST */
+.toast-simple{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--plum);color:#fff;padding:12px 24px;border-radius:999px;
+  font-size:0.88rem;font-weight:700;z-index:401;transition:transform 0.3s ease;
+  box-shadow:0 8px 32px rgba(45,27,78,0.25);}
+.toast-simple.show{transform:translateX(-50%) translateY(0);}
+
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);
+  border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){
+  nav{padding:0 16px;}
+  .hero-banner{flex-direction:column;padding:28px 20px;}
+  .hero-badges{flex-direction:row;}
+  .cat-bar{padding:14px 16px;}
+  .sidebar{display:none;}
+  .products-area{padding:16px;}
+  .cart-drawer{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">Wibi<span>low</span></a>
+  <div class="nav-search">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Search products…">
+  </div>
+  <button class="cart-btn" id="cartBtn">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+</nav>
+
+<div class="hero-banner">
+  <div>
+    <h1>Everything you need.<br><em>One place.</em></h1>
+    <p>Thousands of curated products across every category. One checkout, zero hassle, fast delivery.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val">50K+</div><div class="hero-stat-lbl">Products</div></div>
+      <div><div class="hero-stat-val">4.8★</div><div class="hero-stat-lbl">Avg rating</div></div>
+      <div><div class="hero-stat-val">Fast</div><div class="hero-stat-lbl">Delivery</div></div>
+    </div>
+  </div>
+  <div class="hero-badges">
+    <div class="hero-badge"><div class="hero-badge-icon">💸</div><div class="hero-badge-text">Best prices</div></div>
+    <div class="hero-badge"><div class="hero-badge-icon">📦</div><div class="hero-badge-text">Free shipping $35+</div></div>
+    <div class="hero-badge"><div class="hero-badge-icon">🔒</div><div class="hero-badge-text">Secure checkout</div></div>
+  </div>
+</div>
+
+<div class="cat-bar" id="catBar"></div>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="filter-section">
+      <div class="filter-title">Price Range</div>
+      <div class="price-range">
+        <input class="price-input" id="priceMin" type="number" placeholder="$0">
+        <span style="color:var(--slate);font-weight:700">—</span>
+        <input class="price-input" id="priceMax" type="number" placeholder="$999">
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-title">Category</div>
+      <div id="sidebarCats"></div>
+    </div>
+  </div>
+
+  <div class="products-area">
+    <div class="products-header">
+      <div class="products-count" id="productCount"></div>
+      <select class="sort-select" id="sortSelect">
+        <option value="popular">Most popular</option>
+        <option value="priceLow">Price: low to high</option>
+        <option value="priceHigh">Price: high to low</option>
+        <option value="rating">Top rated</option>
+      </select>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</div>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h2>Your Cart</h2>
+    <button class="cart-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-row"><span>Subtotal</span><span id="subtotalEl"></span></div>
+    <div class="cart-row total"><span>Total</span><span id="totalEl"></span></div>
+    <button class="checkout-btn" id="checkoutBtn">Checkout →</button>
+  </div>
+</div>
+
+<div class="toast-simple" id="toast"></div>
+
+<script>
+const DEFAULT_PRODUCTS = [
+  {id:1,name:'Apple AirPods Pro 2nd Gen',cat:'Electronics',icon:'🎧',price:229,rating:4.8,reviews:12400,hot:true,desc:'Industry-leading noise cancellation with Adaptive Audio. Up to 30 hours battery life.'},
+  {id:2,name:'Samsung 65" 4K QLED TV',cat:'Electronics',icon:'📺',price:749,rating:4.6,reviews:3200,hot:false,desc:'Quantum dot technology with vivid colors and deep blacks. Perfect for movie nights.'},
+  {id:3,name:'iPad Air 11" M2',cat:'Electronics',icon:'📱',price:619,rating:4.9,reviews:8700,hot:true,desc:'Supercharged by the M2 chip. Thin, light, and incredibly powerful.'},
+  {id:4,name:'Sony WH-1000XM5 Headphones',cat:'Electronics',icon:'🎵',price:319,rating:4.8,reviews:22000,hot:false,desc:'Best-in-class noise canceling with 30-hour battery and crystal-clear calls.'},
+  {id:5,name:'Nintendo Switch OLED',cat:'Electronics',icon:'🎮',price:339,rating:4.7,reviews:15600,hot:true,desc:'Vibrant 7-inch OLED screen. Play at home or on the go.'},
+  {id:6,name:'Kindle Paperwhite',cat:'Electronics',icon:'📖',price:115,rating:4.7,reviews:45000,hot:false,desc:'Waterproof with a glare-free display. Holds thousands of books in your pocket.'},
+  {id:7,name:'Dyson V15 Detect Cordless',cat:'Home',icon:'🧹',price:579,rating:4.8,reviews:9100,hot:true,desc:'Laser detects invisible dust. Automatically adapts suction to any floor type.'},
+  {id:8,name:'Instant Pot Duo 8qt',cat:'Home',icon:'🍲',price:89,rating:4.7,reviews:67000,hot:false,desc:'7-in-1 multi-cooker. Pressure cook, slow cook, rice, steam, and more.'},
+  {id:9,name:'Nespresso Vertuo Next',cat:'Home',icon:'☕',price:155,rating:4.6,reviews:18200,hot:false,desc:'Brew barista-quality coffee at home in seconds. Compatible with 30+ blends.'},
+  {id:10,name:'Ninja Air Fryer XL',cat:'Home',icon:'🍳',price:99,rating:4.6,reviews:31000,hot:false,desc:'Crispy results with up to 75% less fat. Fits a 5lb chicken.'},
+  {id:11,name:'Roomba i3+ Robot Vacuum',cat:'Home',icon:'🤖',price:329,rating:4.5,reviews:7800,hot:true,desc:'Learns your home and auto-empties its bin. Works with Alexa and Google.'},
+  {id:12,name:'Nike Air Max 270',cat:'Fashion',icon:'👟',price:132,rating:4.7,reviews:8900,hot:true,desc:"Nike's largest Air unit yet for all-day cushioning and a sleek silhouette."},
+  {id:13,name:"Levi's 501 Original Jeans",cat:'Fashion',icon:'👖',price:55,rating:4.5,reviews:12300,hot:false,desc:'The original straight leg. Timeless style that gets better with every wear.'},
+  {id:14,name:'North Face Thermoball Jacket',cat:'Fashion',icon:'🧥',price:189,rating:4.7,reviews:4200,hot:true,desc:'Packable warmth without the bulk. Stay cozy from city to summit.'},
+  {id:15,name:'Fenty Beauty Foundation',cat:'Beauty',icon:'💄',price:44,rating:4.8,reviews:28000,hot:false,desc:'40 shades for every skin tone. Buildable, breathable, long-wearing coverage.'},
+  {id:16,name:'Dyson Airwrap Complete',cat:'Beauty',icon:'💇',price:569,rating:4.7,reviews:15200,hot:true,desc:'Style, curl, wave, and dry without extreme heat. Multiple attachments included.'},
+  {id:17,name:'CeraVe Moisturizing Cream 16oz',cat:'Beauty',icon:'🧴',price:22,rating:4.9,reviews:89000,hot:false,desc:'Developed with dermatologists. Restores and maintains skin barrier all day.'},
+  {id:18,name:'Osprey Atmos 65L Backpack',cat:'Sports',icon:'🎒',price:310,rating:4.9,reviews:3400,hot:false,desc:'Award-winning ventilated suspension. Built for serious multi-day adventures.'},
+  {id:19,name:'Hydro Flask 32oz',cat:'Sports',icon:'🫗',price:56,rating:4.8,reviews:41000,hot:true,desc:'Keeps drinks cold 24 hours, hot 12 hours. Lifetime warranty included.'},
+  {id:20,name:'Peloton Bike Mat',cat:'Sports',icon:'🚴',price:52,rating:4.5,reviews:7600,hot:false,desc:'High-density foam protects floors and reduces noise during intense sessions.'},
+];
+
+let products = [...DEFAULT_PRODUCTS];
+let cart = [];
+let activeCat = 'All';
+let searchQ = '';
+
+// ── LOAD REAL CATALOG (from SerpApi, refreshed automatically server-side) ──
+async function loadRealCatalog(){
+  try{
+    const res = await fetch('/api/get-catalog');
+    const data = await res.json();
+    if(data.products && data.products.length){
+      const existingIds = new Set(products.map(p=>p.id));
+      const newOnes = data.products.filter(p=>!existingIds.has(p.id));
+      products = [...products, ...newOnes];
+      renderAll();
+    }
+  }catch(e){
+    console.log('Catalog not ready yet, showing demo products.');
+  }
+}
+
+function getCats(){ return ['All',...new Set(products.map(p=>p.cat))]; }
+
+function renderCats(){
+  const bar = document.getElementById('catBar');
+  const side = document.getElementById('sidebarCats');
+  bar.innerHTML = ''; side.innerHTML = '';
+  getCats().forEach(c => {
+    const pill = document.createElement('div');
+    pill.className = 'cat-pill'+(activeCat===c?' active':'');
+    pill.textContent = c;
+    pill.onclick = () => { activeCat=c; renderAll(); };
+    bar.appendChild(pill);
+    if(c!=='All'){
+      const d = document.createElement('div'); d.className='filter-opt';
+      d.innerHTML=`<input type="checkbox" id="sc_${c}" ${activeCat==='All'||activeCat===c?'checked':''}><label for="sc_${c}">${c}</label>`;
+      d.querySelector('input').onchange=e=>{ activeCat=e.target.checked?c:'All'; renderAll(); };
+      side.appendChild(d);
+    }
+  });
+}
+
+function stars(r){ return '★'.repeat(Math.floor(r))+(r%1>=0.5?'½':'')+' '+r; }
+
+function renderProducts(){
+  let list = products.filter(p => {
+    if(activeCat!=='All' && p.cat!==activeCat) return false;
+    if(searchQ && !p.name.toLowerCase().includes(searchQ.toLowerCase())) return false;
+    const mn=parseFloat(document.getElementById('priceMin').value)||0;
+    const mx=parseFloat(document.getElementById('priceMax').value)||99999;
+    if(p.price<mn||p.price>mx) return false;
+    return true;
+  });
+  const sort=document.getElementById('sortSelect').value;
+  if(sort==='priceLow') list.sort((a,b)=>a.price-b.price);
+  else if(sort==='priceHigh') list.sort((a,b)=>b.price-a.price);
+  else if(sort==='rating') list.sort((a,b)=>b.rating-a.rating);
+  else list.sort((a,b)=>b.reviews-a.reviews);
+
+  document.getElementById('productCount').textContent=`${list.length} products`;
+  const grid=document.getElementById('productGrid');
+  grid.innerHTML='';
+  list.forEach(p=>{
+    const inCart=cart.some(c=>c.id===p.id);
+    const card=document.createElement('div');
+    card.className='product-card';
+    card.innerHTML=`
+      <div class="product-img">
+        ${p.hot?'<div class="hot-tag">🔥 Hot</div>':''}
+        ${p.rating>=4.8?'<div class="deal-tag">✨ Top Pick</div>':''}
+        ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.name}">` : p.icon}
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        ${p.desc?`<div class="product-desc">${p.desc}</div>`:''}
+        <div class="product-price">$${p.price}</div>
+        <div class="product-stars">${stars(p.rating)} (${Number(p.reviews).toLocaleString()})</div>
+        <button class="add-btn ${inCart?'added':''}">${inCart?'✓ Added':'+ Add to Cart'}</button>
+      </div>`;
+    card.querySelector('.add-btn').onclick=e=>{ e.stopPropagation(); toggleCart(p); };
+    grid.appendChild(card);
+  });
+}
+
+function renderAll(){ renderCats(); renderProducts(); }
+
+function toggleCart(p){
+  const idx=cart.findIndex(c=>c.id===p.id);
+  if(idx>-1){ cart.splice(idx,1); showToast('Removed from cart'); }
+  else { cart.push(p); showToast('🛒 Added to cart!'); }
+  renderAll(); renderCart(); updateCount();
+}
+
+function renderCart(){
+  const items=document.getElementById('cartItems');
+  const foot=document.getElementById('cartFoot');
+  items.innerHTML='';
+  if(!cart.length){
+    items.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty.<br>Start adding products!</p></div>';
+    foot.style.display='none'; return;
+  }
+  foot.style.display='block';
+  cart.forEach(p=>{
+    const el=document.createElement('div'); el.className='cart-item';
+    el.innerHTML=`
+      <div class="cart-item-icon">${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.name}">` : p.icon}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-label">Wibilow Verified</div>
+        <div class="cart-item-name">${p.name}</div>
+        <div class="cart-item-price">$${p.price}</div>
+      </div>
+      <button class="cart-remove">✕</button>`;
+    el.querySelector('.cart-remove').onclick=()=>toggleCart(p);
+    items.appendChild(el);
+  });
+  const sub=cart.reduce((s,p)=>s+p.price,0);
+  document.getElementById('subtotalEl').textContent=`$${sub.toFixed(2)}`;
+  document.getElementById('totalEl').textContent=`$${sub.toFixed(2)}`;
+}
+
+function updateCount(){ document.getElementById('cartCount').textContent=cart.length; }
+function openCart(){ document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); renderCart(); }
+function closeCart(){ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); }
+
+document.getElementById('cartBtn').onclick=openCart;
+document.getElementById('cartClose').onclick=closeCart;
+document.getElementById('cartOverlay').onclick=closeCart;
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+// ── REAL STRIPE CHECKOUT ──
+async function goToCheckout(){
+  const btn = document.getElementById('checkoutBtn');
+  if(!cart.length) return;
+  const originalText = btn.textContent;
+  btn.textContent = 'Redirecting…';
+  btn.disabled = true;
+  try{
+    const res = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ cart })
+    });
+    const data = await res.json();
+    if(data.url){
+      window.location.href = data.url;
+    } else {
+      showToast('Checkout error — please try again.');
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  }catch(e){
+    showToast('Checkout error — please try again.');
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+document.getElementById('checkoutBtn').addEventListener('click', goToCheckout);
+
+document.getElementById('searchInput').addEventListener('input',e=>{ searchQ=e.target.value; renderProducts(); });
+document.getElementById('priceMin').addEventListener('input',renderProducts);
+document.getElementById('priceMax').addEventListener('input',renderProducts);
+document.getElementById('sortSelect').addEventListener('change',renderProducts);
+
+renderAll();
+loadRealCatalog();
+</script>
+</body>
+</html>
