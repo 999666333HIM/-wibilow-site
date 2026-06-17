@@ -101,6 +101,45 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,0.96);backdrop
 .add-btn:hover{background:#e8522e;}
 .add-btn.added{background:var(--green);}
 
+/* PRODUCT MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(45,27,78,0.5);z-index:500;
+  opacity:0;pointer-events:none;transition:opacity 0.25s;display:flex;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-card{background:var(--white);border-radius:24px;max-width:760px;width:100%;
+  max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(45,27,78,0.3);
+  transform:translateY(20px);transition:transform 0.25s;}
+.modal-overlay.open .modal-card{transform:translateY(0);}
+.modal-top{display:flex;gap:0;flex-wrap:wrap;}
+.modal-img{flex:1;min-width:260px;background:var(--cream);display:flex;align-items:center;
+  justify-content:center;font-size:6rem;border-radius:24px 0 0 0;min-height:280px;position:relative;}
+.modal-img img{width:100%;height:100%;object-fit:contain;padding:28px;}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.9);
+  border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:var(--shadow);}
+.modal-info{flex:1;min-width:280px;padding:32px;display:flex;flex-direction:column;}
+.modal-cat{font-size:0.74rem;font-weight:800;color:var(--coral);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+.modal-name{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--plum);margin-bottom:10px;line-height:1.25;}
+.modal-stars{font-size:0.85rem;color:#F59E0B;margin-bottom:16px;}
+.modal-stars span{color:var(--slate);font-weight:600;margin-left:4px;}
+.modal-desc{font-size:0.92rem;color:var(--slate);line-height:1.7;margin-bottom:20px;flex:1;}
+.modal-price{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--plum);margin-bottom:20px;}
+.modal-add-btn{width:100%;padding:14px;border-radius:999px;background:var(--coral);color:#fff;
+  border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;transition:background 0.2s;}
+.modal-add-btn:hover{background:#e8522e;}
+.modal-add-btn.added{background:var(--green);}
+.modal-similar{padding:0 32px 32px;}
+.modal-similar-title{font-size:0.78rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--slate);margin-bottom:14px;}
+.modal-similar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+.modal-similar-card{background:var(--cream);border:1.5px solid var(--lav);border-radius:14px;
+  padding:10px;cursor:pointer;transition:border-color 0.2s;}
+.modal-similar-card:hover{border-color:var(--coral);}
+.modal-similar-img{height:80px;display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:8px;}
+.modal-similar-img img{width:100%;height:100%;object-fit:contain;}
+.modal-similar-name{font-size:0.76rem;font-weight:700;color:var(--plum);line-height:1.3;margin-bottom:4px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.modal-similar-price{font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--coral);}
+
 /* CART */
 .cart-overlay{position:fixed;inset:0;background:rgba(45,27,78,0.4);z-index:300;
   opacity:0;pointer-events:none;transition:opacity 0.3s;}
@@ -233,6 +272,10 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,0.96);backdrop
   </div>
 </div>
 
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card" id="modalCard"></div>
+</div>
+
 <div class="toast-simple" id="toast"></div>
 
 <script>
@@ -339,6 +382,7 @@ function renderProducts(){
         <button class="add-btn ${inCart?'added':''}">${inCart?'✓ Added':'+ Add to Cart'}</button>
       </div>`;
     card.querySelector('.add-btn').onclick=e=>{ e.stopPropagation(); toggleCart(p); };
+    card.onclick=()=>openModal(p);
     grid.appendChild(card);
   });
 }
@@ -426,6 +470,69 @@ document.getElementById('searchInput').addEventListener('input',e=>{ searchQ=e.t
 document.getElementById('priceMin').addEventListener('input',renderProducts);
 document.getElementById('priceMax').addEventListener('input',renderProducts);
 document.getElementById('sortSelect').addEventListener('change',renderProducts);
+
+// ── PRODUCT MODAL ──
+function openModal(p){
+  const overlay = document.getElementById('modalOverlay');
+  const card = document.getElementById('modalCard');
+  const inCart = cart.some(c=>c.id===p.id);
+
+  const similar = products
+    .filter(x => x.cat===p.cat && x.id!==p.id)
+    .slice(0, 4);
+
+  card.innerHTML = `
+    <div class="modal-top">
+      <div class="modal-img">
+        <button class="modal-close" id="modalClose">✕</button>
+        ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.name}">` : p.icon}
+      </div>
+      <div class="modal-info">
+        <div class="modal-cat">${p.cat}</div>
+        <div class="modal-name">${p.name}</div>
+        <div class="modal-stars">${stars(p.rating)}<span>(${Number(p.reviews).toLocaleString()} reviews)</span></div>
+        <div class="modal-desc">${p.desc || 'A great pick from our curated catalog.'}</div>
+        <div class="modal-price">$${p.price}</div>
+        <button class="modal-add-btn ${inCart?'added':''}" id="modalAddBtn">${inCart?'✓ Added to Cart':'+ Add to Cart'}</button>
+      </div>
+    </div>
+    ${similar.length ? `
+    <div class="modal-similar">
+      <div class="modal-similar-title">You might also like</div>
+      <div class="modal-similar-grid" id="modalSimilarGrid"></div>
+    </div>` : ''}
+  `;
+
+  document.getElementById('modalClose').onclick = closeModal;
+  document.getElementById('modalAddBtn').onclick = () => {
+    toggleCart(p);
+    openModal(p); // re-render modal to update button state
+  };
+
+  if(similar.length){
+    const grid = document.getElementById('modalSimilarGrid');
+    similar.forEach(sp => {
+      const el = document.createElement('div');
+      el.className = 'modal-similar-card';
+      el.innerHTML = `
+        <div class="modal-similar-img">${sp.thumbnail ? `<img src="${sp.thumbnail}" alt="${sp.name}">` : sp.icon}</div>
+        <div class="modal-similar-name">${sp.name}</div>
+        <div class="modal-similar-price">$${sp.price}</div>
+      `;
+      el.onclick = () => openModal(sp);
+      grid.appendChild(el);
+    });
+  }
+
+  overlay.classList.add('open');
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+document.getElementById('modalOverlay').addEventListener('click', e=>{
+  if(e.target.id==='modalOverlay') closeModal();
+});
 
 renderAll();
 loadRealCatalog();
