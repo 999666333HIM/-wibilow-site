@@ -2,7 +2,6 @@
   "name": "wibilow-functions",
   "version": "1.0.0",
   "dependencies": {
-    "stripe": "^16.0.0",
-    "@netlify/blobs": "^8.1.0"
+    "stripe": "^16.0.0"
   }
 }
