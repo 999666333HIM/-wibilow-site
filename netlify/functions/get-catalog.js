@@ -5,7 +5,7 @@ const GITHUB_FILE_PATH = 'catalog.json';
 
 exports.handler = async function () {
   try {
-    const url = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_FILE_PATH}`;
+    const url = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/refs/heads/${GITHUB_BRANCH}/${GITHUB_FILE_PATH}`;
     const res = await fetch(url);
 
     if (!res.ok) {
