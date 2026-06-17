@@ -1,5 +1,3 @@
-const { getStore } = require('@netlify/blobs');
-
 const SEARCH_TERMS = [
   'wireless earbuds',
   'air fryer',
@@ -10,6 +8,10 @@ const SEARCH_TERMS = [
   'backpack',
   'skincare moisturizer',
 ];
+
+const GITHUB_OWNER = '999666333HIM';
+const GITHUB_REPO = '-wibilow-site';
+const GITHUB_FILE_PATH = 'catalog.json';
 
 function markupPrice(rawPrice) {
   return Math.ceil(rawPrice * 1.02);
@@ -29,28 +31,60 @@ function pickEmoji(term) {
   return map[term] || '🛍️';
 }
 
+async function githubRequest(path, options = {}) {
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/${path}`;
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
+  });
+  return res;
+}
+
+async function getCurrentCatalogFile() {
+  const res = await githubRequest(`contents/${GITHUB_FILE_PATH}`);
+  if (res.status === 404) {
+    return { content: {}, sha: null };
+  }
+  const data = await res.json();
+  const decoded = Buffer.from(data.content, 'base64').toString('utf-8');
+  return { content: JSON.parse(decoded), sha: data.sha };
+}
+
+async function saveCatalogFile(newContent, sha) {
+  const encoded = Buffer.from(JSON.stringify(newContent, null, 2)).toString('base64');
+  const body = {
+    message: 'Update product catalog',
+    content: encoded,
+  };
+  if (sha) body.sha = sha;
+
+  const res = await githubRequest(`contents/${GITHUB_FILE_PATH}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
+  return res;
+}
+
 exports.handler = async function () {
   try {
     const apiKey = process.env.SERPAPI_KEY;
     if (!apiKey) {
       return { statusCode: 500, body: 'Missing SERPAPI_KEY environment variable.' };
     }
+    if (!process.env.GITHUB_TOKEN) {
+      return { statusCode: 500, body: 'Missing GITHUB_TOKEN environment variable.' };
+    }
 
-    console.log('DEBUG siteID present:', !!process.env.NETLIFY_SITE_ID);
-    console.log('DEBUG token present:', !!process.env.NETLIFY_BLOBS_TOKEN);
-    console.log('DEBUG siteID value (first 6 chars):', (process.env.NETLIFY_SITE_ID || '').slice(0, 6));
+    const { content: catalog, sha } = await getCurrentCatalogFile();
 
- const store = getStore({ name: 'wibilow-catalog' });
-
-    let runIndex = 0;
-    try {
-      const savedIndex = await store.get('run-index', { type: 'json' });
-      if (typeof savedIndex === 'number') runIndex = savedIndex;
-    } catch (e) {}
-
+    let runIndex = catalog.__runIndex || 0;
     const term = SEARCH_TERMS[runIndex % SEARCH_TERMS.length];
     const nextIndex = (runIndex + 1) % SEARCH_TERMS.length;
-    await store.setJSON('run-index', nextIndex);
 
     const url = `https://serpapi.com/search.json?engine=google_shopping&q=${encodeURIComponent(term)}&api_key=${apiKey}`;
     const res = await fetch(url);
@@ -63,7 +97,6 @@ exports.handler = async function () {
         name: item.title || term,
         cat: term,
         icon: pickEmoji(term),
-        price: rawPrice,
         displayPrice: markupPrice(rawPrice),
         rating: item.rating || 4.5,
         reviews: item.reviews || Math.floor(Math.random() * 5000) + 200,
@@ -75,14 +108,14 @@ exports.handler = async function () {
       };
     });
 
-    let catalog = {};
-    try {
-      const existing = await store.get('catalog', { type: 'json' });
-      if (existing) catalog = existing;
-    } catch (e) {}
-
     catalog[term] = results;
-    await store.setJSON('catalog', catalog);
+    catalog.__runIndex = nextIndex;
+
+    const saveRes = await saveCatalogFile(catalog, sha);
+    if (!saveRes.ok) {
+      const errBody = await saveRes.text();
+      throw new Error(`GitHub save failed: ${saveRes.status} ${errBody}`);
+    }
 
     return {
       statusCode: 200,
