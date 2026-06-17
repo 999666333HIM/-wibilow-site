@@ -141,7 +141,7 @@
       "lastUpdated": "2026-06-17T17:02:31.866Z"
     }
   ],
-  "__runIndex": 4,
+  "__runIndex": 5,
   "air fryer": [
     {
       "id": "air-fryer-0",
@@ -566,6 +566,148 @@
       "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSRXhUdOsTw00egkxKbFuiyxwPML-5sC33PNFJA1FKQafGU7lqMs3xtoHW45I-dESot8Llv4efiL7POV124OphgJqotqnSD6OPM817QpynOXM0xdEx4C2O6",
       "stock": 30,
       "lastUpdated": "2026-06-17T18:02:12.951Z"
+    }
+  ],
+  "coffee maker": [
+    {
+      "id": "coffee-maker-0",
+      "name": "Hamilton Beach 12 Cup Programmable Coffee Maker 46290",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 29,
+      "rating": 3.9,
+      "reviews": 1300,
+      "hot": true,
+      "desc": "Easy to use (348 user reviews)",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQYYSspkt1MdDSYv_8DMPFoq4CPs9Bj1XqUbC6Xy4440W67CdNE5uaplSJlZP2Jbp2NbhR0XGLpoEB-NSIUKoy7GtUjwFdjz3PmA4XDmHr34Dvz2UG9UH1EHg",
+      "stock": 6,
+      "lastUpdated": "2026-06-17T21:06:14.420Z"
+    },
+    {
+      "id": "coffee-maker-1",
+      "name": "Mainstays 12-Cup Drip Coffee Maker",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 18,
+      "rating": 4.2,
+      "reviews": 2400,
+      "hot": true,
+      "desc": "Easy to use (248 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRAjRbhzXny4kko_1xdXE_6PluCxM82fZKiuaTrksK5C2Dree_n5MjiVdj8PGgnUg5dRAKO0dK4pQrsVkPwAhcOghiah1w_RqsKcG5WrKGlCxyI3ouZ_As8",
+      "stock": 19,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-2",
+      "name": "Ninja Fresh Brew 14-Cup Programmable Coffee Maker",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 123,
+      "rating": 4.2,
+      "reviews": 53,
+      "hot": false,
+      "desc": "Easy to clean (16 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcS8Tlc9UknG-VbkumqU73DGsQFg8U93UGqzBpuIpB1Tc2OaUK8wBP5pcpxE0iYUqYYLvmzXltyxGuC1u5ZbhpNJgvvixCuU3UUJlsTYQUM",
+      "stock": 15,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-3",
+      "name": "Keurig K-Mini Go Single-Serve K-Cup Pod Coffee Maker",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 72,
+      "rating": 3.7,
+      "reviews": 975,
+      "hot": false,
+      "desc": "Compact (283 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR2RMjhVPlo_IOXBGWptH0oG1g_8RaqbIbrf8jqrjG7bcXQRNc1SAT_2WoAEz0ooFMAqYVqLr3dk04MfrDS4usVX9ijuAvpinfuqmj-KsKvHyf1iGT9phdsFQ",
+      "stock": 29,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-4",
+      "name": "Mr. Coffee 12-Cup Programmable Coffee Maker with Rapid Brew System",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 82,
+      "rating": 3.9,
+      "reviews": 815,
+      "hot": false,
+      "desc": "Easy to use (109 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQ7bJbQ6Jgf22aXki20jRDZVg3-b4Cg8ByMT4G3YSJWwMinCZNL9rFO0OgINoXcyiuCQDTt5iKpW_HhxPWGTd7nIT1CbvhJJb_eTgEZSeku-CJcz5pAbOY72w",
+      "stock": 19,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-5",
+      "name": "14-Cup Programmable Coffeemaker Cuisinart",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 123,
+      "rating": 3.6,
+      "reviews": 248,
+      "hot": false,
+      "desc": "Easy to use (40 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQPxpVk7NFHtxI8hLsE6mZuebcu08Ar7MZSsihvd-SGoamEKWQK89DDhHdTDtJSbOf1dTHsk3ge6S0a45F2C8VY36oeMSHOgzQmc6luVbS69GjmXZnAWORU",
+      "stock": 23,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-6",
+      "name": "De'Longhi COM532M All-in-One Combination Coffee Maker & Espresso Machine",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 276,
+      "rating": 3.1,
+      "reviews": 557,
+      "hot": false,
+      "desc": "Quality espresso drinks (87 user reviews)",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQfYI8IaMoCcw60LTZB6Mi1he4Gd6kLk_fet6ILiPxdkToGq2tquMuAS5T24xpu8Nfsi9odGJ3nmbXtYUxFz2FWQ6dTtdTXpfZ6ulxqkpw",
+      "stock": 31,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-7",
+      "name": "Keurig K-Duo Hot & Iced Single Serve & Carafe Coffee Maker Gen 2",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 153,
+      "rating": 4.2,
+      "reviews": 2200,
+      "hot": false,
+      "desc": "Easy to use (293 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRh1BOulszlC7KyWj2MCiJWAK2Z2wX8jU-vgUazMDQmNDNNKTVHVneWWI3p4NNVmBx9Mp16ZfheIqF5JrkYngYQbAWVrgzf1vwYjk_jbRoJiKyHsirPcGKDKg",
+      "stock": 22,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-8",
+      "name": "Breville Luxe Brewer Thermal Drip Coffee Maker",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 357,
+      "rating": 3.7,
+      "reviews": 431,
+      "hot": false,
+      "desc": "Easy to clean (48 user reviews)",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS5MtETgtc_jK5DXYkDAal5XXqoYPVAe4SoBy0ax118B-gqItXBX5JXD-K1VL4O-L-e4ozvG6C8iRf___YSqk-xvJIzd8UpkLSIRMOqF4tYjZNfaySaMgeU",
+      "stock": 22,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
+    },
+    {
+      "id": "coffee-maker-9",
+      "name": "Mr. Coffee 12-Cup Switch Coffee Maker",
+      "cat": "coffee maker",
+      "icon": "☕",
+      "displayPrice": 34,
+      "rating": 4.1,
+      "reviews": 2800,
+      "hot": false,
+      "desc": "Easy to use (793 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR3ZXADEX_yQGylmvHbvyYvc71ZlckbhlyATroJku109QRNXELf5lyM6PzGcfCtluu0UCWp-3-1ZFIw6fQVLlfsvq003cQOgBrI1HenuGNyYEfH8mgbs7GTmA",
+      "stock": 29,
+      "lastUpdated": "2026-06-17T21:06:14.422Z"
     }
   ]
 }
