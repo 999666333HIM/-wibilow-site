@@ -141,7 +141,7 @@
       "lastUpdated": "2026-06-17T17:02:31.866Z"
     }
   ],
-  "__runIndex": 5,
+  "__runIndex": 6,
   "air fryer": [
     {
       "id": "air-fryer-0",
@@ -708,6 +708,148 @@
       "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR3ZXADEX_yQGylmvHbvyYvc71ZlckbhlyATroJku109QRNXELf5lyM6PzGcfCtluu0UCWp-3-1ZFIw6fQVLlfsvq003cQOgBrI1HenuGNyYEfH8mgbs7GTmA",
       "stock": 29,
       "lastUpdated": "2026-06-17T21:06:14.422Z"
+    }
+  ],
+  "4k tv": [
+    {
+      "id": "4k-tv-0",
+      "name": "Toshiba C350 Series 4K UHD Smart Fire TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 143,
+      "rating": 4.6,
+      "reviews": 2400,
+      "hot": true,
+      "desc": "Good sound quality (377 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQiONCMZcGB54QgUqCAR6Vufn3r5A0i5JFPIMhUho6zpq5HZ_tbz38b9T5mW3NFfEW0MsIM6IleL_vcRV6aaKCJNweR2_mzabOOnuVWMlN_lGA9Wrt1kx_sOA",
+      "stock": 10,
+      "lastUpdated": "2026-06-18T00:12:42.183Z"
+    },
+    {
+      "id": "4k-tv-1",
+      "name": "Insignia Class F50 Series LED 4K UHD Smart Fire TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 143,
+      "rating": 4.6,
+      "reviews": 11000,
+      "hot": true,
+      "desc": "Good sound quality (1,499 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQF5JMSOTDETS3Xm2F9T2M0QjghsqCdo6dji-1Ajrom4gUyzfcfJ8Iysq9uaMduKt1acHmDEb60KGjzTxgzUXVfTz0S3dnXSB6mEp47U1UqmMEMiOor3bDSXw",
+      "stock": 27,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-2",
+      "name": "Vizio Quantum 4K QLED HDR Smart TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 233,
+      "rating": 4.2,
+      "reviews": 13000,
+      "hot": false,
+      "desc": "Easy to set up (1,647 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSQciC6utag8dG93UX_h800HCJh8YuuYuY2g3bibyKejzeHlOoqTOzZDHMAesu7PlEY0T-tKUggui6qcMVzskG0UVL7swd4vF4dgENv4dgihKqNFMuKL3JpQg",
+      "stock": 39,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-3",
+      "name": "VIZIO D Series Smart TV HDR",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 31,
+      "rating": 3.8,
+      "reviews": 233,
+      "hot": false,
+      "desc": "Good sound quality (27 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRZm43MQF-VQSr5VVYP6ehVd5JPfsqGHFc4VqlXkXiSSnC4127nWrZ6uUPEXgJh9-JZi4f0pBpo3-BO0IxeV71w9zFsU0HV40_reN6pUWqqOMXd3mMvRXF-",
+      "stock": 13,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-4",
+      "name": "Pioneer Class LED 4K UHD Smart Roku TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 153,
+      "rating": 4.7,
+      "reviews": 1100,
+      "hot": false,
+      "desc": "Good sound quality (163 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ_OovPkbW_kMKCgT1Z0lXt3VvS3IW8V29VZwvZrLcm8xiAnb1BvoUKTE01ai3aQSLDT1IzQvG4SaqJeQBAd5ZarsNLj3IyXG4fTGRHaTzDn2mMRRTmsF0H",
+      "stock": 37,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-5",
+      "name": "LG OLED evo AI C5 4K Smart TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 1019,
+      "rating": 4.8,
+      "reviews": 20000,
+      "hot": false,
+      "desc": "Good sound quality (2,012 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQl2R-IDZy4gE35qQabzavk9hWajdVGoEeCxzqWYVjHO_XIXi9y4ET8boxTQMltKxQyez1Qj_wDdgAu_rnQ9lpvkoLL7VOCmPOVrwkklDki7QtUx8Vg61Eb",
+      "stock": 22,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-6",
+      "name": "Onn Class 4K UHD Powered by Vizio Smart Television",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 151,
+      "rating": 3.6,
+      "reviews": 1700,
+      "hot": false,
+      "desc": "Easy to set up (124 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSP4PNqUFQta_r4nmJ3gBcflwI-tCiB7_m6IotgXU1yrigx8GuAr3lzx5cCJqp1FCxi4gcLtX1jEOEcJbvTI39_KF0gTuwVsm6d4MTQbsFi3P-57g2FjnIJ",
+      "stock": 4,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-7",
+      "name": "Samsung CU8000 Crystal UHD 4K Smart TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 306,
+      "rating": 4.4,
+      "reviews": 16000,
+      "hot": false,
+      "desc": "Good sound quality (1,293 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcST1tEhaCF1SjAbXDM7sMoWx2lL9cXhM2cZj4LOVvStFsRvpPnBx4X1OcM9mHOTcuNrlWon3VV6fo-jWpiy_SQlRNXkvYy89aRvBwM4FG1XNHWCPVJvHCsE",
+      "stock": 18,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-8",
+      "name": "Samsung Class Crystal UHD U7900F 4K Smart TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 357,
+      "rating": 4.5,
+      "reviews": 21000,
+      "hot": false,
+      "desc": "Good sound quality (2,381 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSjTW8hxtVh1QguKxWLj0IwQpb2Nb80MYfobqrE-zgZ2hWXLJ2gyszLQx8VKQgy7ptdnMx1zsqFkBvroj7QlX6_kWOpVOFQIr8wRwkv14w0WAOHuiwAKdso",
+      "stock": 6,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
+    },
+    {
+      "id": "4k-tv-9",
+      "name": "Roku Select Series 43\" 4K LED Smart TV",
+      "cat": "4k tv",
+      "icon": "📺",
+      "displayPrice": 225,
+      "rating": 4.8,
+      "reviews": 1500,
+      "hot": false,
+      "desc": "Easy to use (297 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQZR6ioq3Rv0rUsaapRhUHnwbB5APvjJhYAsbQT3pxEdV5thlqd0brDEGI73PTuwPdm9k7Wvf1Et2Smj7jRCyh-it-67KNMlB3GrScEdV1e4V1qgQNFguptmw",
+      "stock": 15,
+      "lastUpdated": "2026-06-18T00:12:42.185Z"
     }
   ]
 }
