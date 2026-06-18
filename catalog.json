@@ -141,7 +141,7 @@
       "lastUpdated": "2026-06-17T17:02:31.866Z"
     }
   ],
-  "__runIndex": 6,
+  "__runIndex": 7,
   "air fryer": [
     {
       "id": "air-fryer-0",
@@ -850,6 +850,148 @@
       "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQZR6ioq3Rv0rUsaapRhUHnwbB5APvjJhYAsbQT3pxEdV5thlqd0brDEGI73PTuwPdm9k7Wvf1Et2Smj7jRCyh-it-67KNMlB3GrScEdV1e4V1qgQNFguptmw",
       "stock": 15,
       "lastUpdated": "2026-06-18T00:12:42.185Z"
+    }
+  ],
+  "backpack": [
+    {
+      "id": "backpack-0",
+      "name": "The North Face Jester Luxe Backpack",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 102,
+      "rating": 4.7,
+      "reviews": 1700,
+      "hot": true,
+      "desc": "Large capacity (463 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRa1eWy9ZkjKsh3ccKvOwkZL0-svtG11ZUzbeWRso0m5PSsNtepDYzqeG1LnOKdefi7VgQR6Eht9pbckkSkmwziu-FhIuZTFAanLWw6AxC9DAjJWwoznoFkSQ",
+      "stock": 20,
+      "lastUpdated": "2026-06-18T03:05:56.443Z"
+    },
+    {
+      "id": "backpack-1",
+      "name": "Ozark Trail Hiker Backpack",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 236,
+      "hot": true,
+      "desc": "A top pick for \"backpack\".",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRDXQPYgZr0u0K0CSjMGA85tpPLGxrP2r0WTBVZFuGWc_-bfFEW3Ac1-ri3_0wdCOTMcuHsOjCKD_xEb_Kv-WIEqBCONdvul5XHRHYqnm4QVLfHVMfSyMO2uA",
+      "stock": 34,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-2",
+      "name": "Jansport Superbreak Plus",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 46,
+      "rating": 4.7,
+      "reviews": 2300,
+      "hot": false,
+      "desc": "Well made (370 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSLbUPtWXFNp2OZqTsMOJHJRkA8CDBu-oYkdqOJ302mjtIJ0k8u4hQ2M9l2WN07Jou1n_kUGFQKgGyPe6VWnGYVkLFCMxtVIYHeil190LPJlBeItB9eRxAL",
+      "stock": 20,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-3",
+      "name": "Fjallraven Backpack Kanken",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 92,
+      "rating": 4.7,
+      "reviews": 19000,
+      "hot": false,
+      "desc": "Well made (982 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSR2qmClJSJXU45_0s-U5m2VTz1-z0jqIzaEBAdHNuEFzeLLl7tM6u6c_cRXdiswphWb_VITLO6m_vYs8BiFjJUuLa7xOMQ",
+      "stock": 35,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-4",
+      "name": "Vera Bradley Large Bancroft Backpack",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 74,
+      "rating": 4.9,
+      "reviews": 338,
+      "hot": false,
+      "desc": "Large capacity (128 user reviews)",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ0vf5yfzMw7S27Cxqte0jTb1Krci5OY7Z8MSKcQB8gRTjjDi0F10XTOXdPOTy0JwFsZ9wSfSD5NkSKlYjKtiOQiPXnQqTZCUghwtTduRVHnU3nancO6UYSSw",
+      "stock": 14,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-5",
+      "name": "Bagsmart Blast Quick Access Carry On Travel Backpack",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 58,
+      "rating": 4.8,
+      "reviews": 3300,
+      "hot": false,
+      "desc": "Convenient storage design (1,102 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSWria7rQI_Cz9DV9dh9U6G0TMvwSs9rRTWopwzZvQfiLn6B1J6dCcS9mcKUG6fFMqitDRZKvd_qnfAx3T9XYfHgrXoQqF2tsGGMdCZ0gIfP9kwNFpkBd_K",
+      "stock": 32,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-6",
+      "name": "The North Face Jester Backpack Women's",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 92,
+      "rating": 4.7,
+      "reviews": 5800,
+      "hot": false,
+      "desc": "Large capacity (1,529 user reviews)",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRYle38q41krvhOc3RhUYlJ00Nw4Qe9HOqh4svzRYZm25TyME43JXqCXvFJ2G-Z3NDVnrzjR3G6yDXZRR8nC8drzh8Fe2HYisG9aRmi3tHZuu8H2MeLwYGD",
+      "stock": 35,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-7",
+      "name": "Carhartt 27L Single-Compartment Backpack",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 102,
+      "rating": 4.4,
+      "reviews": 69,
+      "hot": false,
+      "desc": "Well made (17 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSTb5RgtAitb2-Xz6fyM4oeEVvYQby6ijTSf9eOCzltowW37pcPaNlwPkg_2VS7fTdjaCHZ7QxAejZahyKbUsv3WQ80ErZPNBM5XqTr5pBs0VojxQj1TRmcdg",
+      "stock": 27,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-8",
+      "name": "Nike Aura Backpack",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 72,
+      "rating": 4.8,
+      "reviews": 90,
+      "hot": false,
+      "desc": "Large capacity (17 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSak763bTAvaeGVXACrCM6NyGguZvwwrUHpCfZ7SLsaxDV6I-kwGatZh3ma1tuAQl8S2TcYTXobU_Lwea5qQWwTSfb05CRmn5Op5brlJq62EvH-e4Gb6m3cdA",
+      "stock": 28,
+      "lastUpdated": "2026-06-18T03:05:56.445Z"
+    },
+    {
+      "id": "backpack-9",
+      "name": "Herschel Supply Co. Herschel Classic Backpack XL",
+      "cat": "backpack",
+      "icon": "🎒",
+      "displayPrice": 58,
+      "rating": 4.5,
+      "reviews": 1900,
+      "hot": false,
+      "desc": "Well made (443 user reviews)",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRs1WDqZHgL6epDGGegQEica-0sN69qqcI9k9nIjLTPZR7D3VwvDsRysfNleLS2EoNJfRKpX0xvRNNzbGMvO269cACJh2PhhSysSCUs0HEXZ63bUzS5Khj9BQ",
+      "stock": 33,
+      "lastUpdated": "2026-06-18T03:05:56.446Z"
     }
   ]
 }
