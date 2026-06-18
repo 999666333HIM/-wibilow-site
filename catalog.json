@@ -141,7 +141,7 @@
       "lastUpdated": "2026-06-17T17:02:31.866Z"
     }
   ],
-  "__runIndex": 7,
+  "__runIndex": 0,
   "air fryer": [
     {
       "id": "air-fryer-0",
@@ -992,6 +992,148 @@
       "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRs1WDqZHgL6epDGGegQEica-0sN69qqcI9k9nIjLTPZR7D3VwvDsRysfNleLS2EoNJfRKpX0xvRNNzbGMvO269cACJh2PhhSysSCUs0HEXZ63bUzS5Khj9BQ",
       "stock": 33,
       "lastUpdated": "2026-06-18T03:05:56.446Z"
+    }
+  ],
+  "skincare moisturizer": [
+    {
+      "id": "skincare-moisturizer-0",
+      "name": "Glow Recipe Watermelon Glow Moisturizer",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 41,
+      "rating": 4.6,
+      "reviews": 9800,
+      "hot": true,
+      "desc": "Pleasant scent (3,486 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSST6O6SSycU0O8O_nN7KdoLt7Up_-j808FCXBj_gnMIedVpLFZD19TFf9QzcdFUjKb8K1Ba0CgozrKBJyahCwX0HpUbd-FqK_GGf5_xvWUiutl2NCBx2WJvw",
+      "stock": 13,
+      "lastUpdated": "2026-06-18T06:06:30.127Z"
+    },
+    {
+      "id": "skincare-moisturizer-1",
+      "name": "CeraVe Daily Moisturizing Lotion",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 16,
+      "rating": 4.8,
+      "reviews": 104000,
+      "hot": true,
+      "desc": "Moisturizes well (7,245 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRiizh-kbJ2WEUVPBA23rGXyOJUDFA_1AdDUq9WV8cWffdBbNaO-kAKWZPhya7nX2ugvbbWizRUjq5qvImQ6LbvkjtMu6dl2WtQOdBdvYYv7Nd9ACmy4bVUVg",
+      "stock": 9,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-2",
+      "name": "Neutrogena Hydro Boost Water Gel",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 28,
+      "rating": 4.7,
+      "reviews": 106000,
+      "hot": false,
+      "desc": "Moisturizes well (16,469 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRsLR8hjRmwXyNSZO6r7TU04vOWM1Zg98lOpvO8RsihDn1GR02ZOJmp1By_FntcT_M60_bF8YJFi3vLjyYpBLliLxEe1M9btfo6DLfvmhXFCm4lwHpRKETe1A",
+      "stock": 12,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-3",
+      "name": "Sincerely Yours So Soft Daily Moisturizer",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 27,
+      "rating": 4.6,
+      "reviews": 455,
+      "hot": false,
+      "desc": "Moisturizes well (73 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRGfctu2zLE6aR9_qSPNCxgGaEsZ8W89X5JWwCuchqVv1b4xkwmCtmyeQqDbD0uAD5bCQiPKF7SrOmJ85hwXPFV3_x6IKU_--Y3K2gJrJfBrug0B0t2y3mN",
+      "stock": 21,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-4",
+      "name": "Bubble Skincare Slam Dunk Hydrating Moisturizer",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 16,
+      "rating": 4.7,
+      "reviews": 13000,
+      "hot": false,
+      "desc": "Moisturizes well (4,926 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQLxSd1dPoTudUO7wA_LQRy7RGqJG0vk3Ofl0BUj1cpJdVrv6O5GtPWL5LBMOmTks5wlHEregMQZL-SLBsVkXzdMz9zIam_d8R802qxp_CoW4_WsykSoovc",
+      "stock": 26,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-5",
+      "name": "Kiehl's Ultra Facial Cream",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 30,
+      "rating": 4.6,
+      "reviews": 45000,
+      "hot": false,
+      "desc": "Moisturizes well (13,445 user reviews)",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSjtOWcSIJVESX38tX2s3aifJWnyQRMJKjKbsiNoYql_MuJjta-5nahEQRKJNxHsSSY77uun2AmW8bLIuB75vNyebyiSWvDYeDucgkk6QkmV7qGzvIWjOeQAQ",
+      "stock": 37,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-6",
+      "name": "La Roche Posay Lipikar Balm AP+",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 23,
+      "rating": 4.7,
+      "reviews": 31000,
+      "hot": false,
+      "desc": "Moisturizes well (4,176 user reviews)",
+      "thumbnail": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS215jZdBqbrdYfv18yv2X1uOlCFPltMh9kINpb4jmhzB5tRq987j24_e90Y77mnj7PK2KFpqmsqQnn5w6_QYULiWv8VJE4YoIQMyfhDlH5GprTo9SUjObKWg",
+      "stock": 30,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-7",
+      "name": "Tatcha The Dewy Skin Cream",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 26,
+      "rating": 4.5,
+      "reviews": 21000,
+      "hot": false,
+      "desc": "Moisturizes well (7,666 user reviews)",
+      "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSvvOadU1creted2iUkhaWU1fISeNpxJ-RNsMUhapyJ2Adh5qLZ9qQw_vO2saCQTrLWYOy-CMikTA6Fq2PTdYEyQ4fVWtnaM5knM4K-VQi_nH9Rx8OJjiVygw",
+      "stock": 41,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-8",
+      "name": "BYOMA Moisturizing Gel Cream",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 16,
+      "rating": 4.5,
+      "reviews": 6900,
+      "hot": false,
+      "desc": "Moisturizes well (2,083 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSaUsUiMn1UBdOSrTvh0YxrH-4mtaWgcecOw_3A-odt8GVNWlkQpO58IR4SMMfhdWvJ5KJCOiDhxQ6dNjzhRJNlBMIBAaxDckLpWt6EootQA25nJppPbSPhNw",
+      "stock": 16,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
+    },
+    {
+      "id": "skincare-moisturizer-9",
+      "name": "Glow Recipe Watermelon Pink Juice Moisturizer",
+      "cat": "skincare moisturizer",
+      "icon": "🧴",
+      "displayPrice": 22,
+      "rating": 4.6,
+      "reviews": 13000,
+      "hot": false,
+      "desc": "Pleasant scent (5,235 user reviews)",
+      "thumbnail": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQl_YGasuElfv6Gbmjgs7VDCoWHfi8Qm7VF8cEyxwV4a942nDALwMH1vri5OcAScVCej8IxN2lPDipXC58o8bqGskWmGzLP6B7vndN5hB8Ct_M98iRUEbHO",
+      "stock": 27,
+      "lastUpdated": "2026-06-18T06:06:30.139Z"
     }
   ]
 }
