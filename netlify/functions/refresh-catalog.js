@@ -70,7 +70,7 @@ exports.handler = async function(){
       cat:term, icon:pickEmoji(term),
       displayPrice:markupPrice(parseFloat(item.sellPrice||item.productPrice||0)),
       rating:4.5, reviews:Math.floor(Math.random()*8000)+200,
-      hot:i<2, desc:item.productType||`Quality ${term} — shipped direct.`,
+      hot:i<2, desc:item.remark||item.productUnit||`Quality ${term} — shipped direct to your door.`,
       thumbnail:item.productImage||null,
       stock:item.inventoryQuantity||Math.floor(Math.random()*40)+3,
       cjPid:item.pid||item.productId,
