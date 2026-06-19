@@ -21,21 +21,22 @@ exports.handler = async function () {
     Object.entries(catalog).forEach(([key, items]) => {
       if (key === '__runIndex') return;
       if (!Array.isArray(items)) return;
-      items.forEach((item) => {
-        allProducts.push({
-          id: item.id,
-          name: item.name,
-          cat: item.cat,
-          icon: item.icon,
-          price: item.displayPrice,
-          rating: item.rating,
-          reviews: item.reviews,
-          hot: item.hot,
-          desc: item.desc,
-          thumbnail: item.thumbnail,
-          stock: item.stock,
-        });
-      });
+     items.forEach((item) => {
+  allProducts.push({
+    id: item.id,
+    name: item.name,
+    cat: item.cat,
+    icon: item.icon,
+    price: item.displayPrice,
+    rating: item.rating,
+    reviews: item.reviews,
+    hot: item.hot,
+    desc: item.desc,
+    thumbnail: item.thumbnail,
+    stock: item.stock,
+    cjPid: item.cjPid || null,  // ← add this line if missing
+  });
+});
     });
 
     return {
