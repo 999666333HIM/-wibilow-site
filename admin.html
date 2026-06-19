@@ -239,7 +239,7 @@ function populateCatFilter(){
 
 function updateStats(){
   const cats = new Set(allProducts.map(p => p.cat));
-  const avgPrice = allProducts.length ? (allProducts.reduce((s,p) => s + p.price, 0) / allProducts.length).toFixed(0) : 0;
+  const avgPrice = allProducts.length ? (allProducts.reduce((s,p) => s + p.displayPrice, 0) / allProducts.length).toFixed(0) : 0;
   const lowStock = allProducts.filter(p => (p.stock||0) < 5).length;
   document.getElementById('statTotal').textContent = allProducts.length.toLocaleString();
   document.getElementById('statCats').textContent = cats.size;
@@ -275,10 +275,10 @@ function renderTable(){
   document.getElementById('productTable').style.display = 'table';
 
   list.forEach(p => {
-    const profit = parseFloat(estimateProfit(p.price));
+    const profit = parseFloat(estimateProfit(p.displayPrice));
     const profitClass = profit > 5 ? 'good' : profit > 0 ? 'ok' : 'bad';
     const stockClass = (p.stock||0) < 5 ? 'stock-low' : 'stock-high';
-    const cost = estimateCost(p.price);
+    const cost = estimateCost(p.displayPrice);
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -293,7 +293,7 @@ function renderTable(){
           </div>
         </div>
       </td>
-      <td><span class="price-sell mono">$${p.price}</span></td>
+      <td><span class="price-sell mono">$${p.displayPrice}</span></td>
       <td><span class="price-cost mono">~$${cost} + $${AVG_SHIPPING} ship</span></td>
       <td><span class="profit ${profitClass} mono">${profit > 0 ? '+' : ''}$${profit}</span></td>
       <td><span class="stock-badge ${stockClass}">${p.stock||'?'} left</span></td>
