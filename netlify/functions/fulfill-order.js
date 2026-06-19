@@ -49,8 +49,10 @@ const lineItems = fullSession.line_items?.data || [];
     if(!shipping||!lineItems.length) return {statusCode:200,body:'No shipping info'};
     const token = await getCJToken(process.env.CJ_API_KEY);
     const items = lineItems.map(i=>({name:i.description,cjPid:i.price?.metadata?.cjPid||null}));
-    const fulfillable = items.filter(i=>i.cjPid);
-    if(fulfillable.length){
+console.log('Items from checkout:', JSON.stringify(items));
+const fulfillable = items.filter(i=>i.cjPid);
+console.log('Fulfillable items:', JSON.stringify(fulfillable));
+if(fulfillable.length){
       const result = await createCJOrder(token,{buyerName:shipping.name,
         address:shipping.address,items:fulfillable});
       console.log('CJ order result:',JSON.stringify(result));
