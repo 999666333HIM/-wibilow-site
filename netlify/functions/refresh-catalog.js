@@ -158,11 +158,13 @@ exports.handler = async function(){
     const token = await getCJToken(apiKey);
     const allItems = await searchCJProducts(token, term);
 
-    // Filter out irrelevant products by checking name contains at least one keyword
-    const keywords = term.toLowerCase().split(' ').filter(w => w.length > 2);
+    const specificKeyword = term.toLowerCase().split(' ').filter(w =>
+      !['and','for','the','with','set','kids'].includes(w) && w.length > 3
+    ).pop();
+
     const items = allItems.filter(item => {
       const name = (item.productNameEn || item.productName || '').toLowerCase();
-      return keywords.some(kw => name.includes(kw));
+      return specificKeyword && name.includes(specificKeyword);
     });
 
     if(!items.length){
@@ -170,21 +172,21 @@ exports.handler = async function(){
       return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No relevant results'})};
     }
 
-    catalog[term] = items.slice(0, 50).map((item,i)=>{
+    catalog[term] = items.slice(0,50).map((item,i)=>{
       const rawPrice = parseFloat(item.sellPrice||item.productPrice||0);
+      const displayPrice = markupPrice(rawPrice);
+      if(displayPrice < 15 || rawPrice === 0) return null;
       const rawName = item.productNameEn||item.productName||term;
-      // Deduplicate repeated names from CJ
       const words = rawName.split(' ');
       const half = Math.ceil(words.length/2);
       const firstHalf = words.slice(0,half).join(' ');
       const cleanName = rawName.toLowerCase().endsWith(firstHalf.toLowerCase()) ? firstHalf : rawName;
-
       return {
         id:`cj-${item.pid||item.productId||i}-${Date.now()}`,
         name:cleanName,
         cat:pickCat(term),
         icon:pickEmoji(term),
-        displayPrice:markupPrice(rawPrice),
+        displayPrice,
         rating:4.5,
         reviews:Math.floor(Math.random()*20000)+200,
         hot:i<3,
@@ -194,7 +196,7 @@ exports.handler = async function(){
         cjPid:item.pid||item.productId,
         lastUpdated:new Date().toISOString(),
       };
-    });
+    }).filter(Boolean);
 
     const saveRes = await saveCatalogFile(catalog, sha);
     if(!saveRes.ok){
