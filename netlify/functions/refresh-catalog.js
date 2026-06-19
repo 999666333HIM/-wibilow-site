@@ -25,7 +25,15 @@ const GITHUB_REPO = '-wibilow-site';
 const GITHUB_FILE_PATH = 'catalog.json';
 const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
 
-function markupPrice(p){ return Math.ceil(p * 1.02); }
+function markupPrice(p){
+  if(p === 0) return 0;
+  return Math.ceil((p + 6) * 1.40);
+}
+
+function cleanDesc(raw){
+  if(!raw) return '';
+  return raw.replace(/<[^>]*>/g,'').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim().slice(0,150);
+}
 
 function pickEmoji(term){
   const map = {
@@ -148,20 +156,29 @@ exports.handler = async function(){
     catalog.__runIndex = (runIndex + 1) % SEARCH_TERMS.length;
 
     const token = await getCJToken(apiKey);
-    const items = await searchCJProducts(token, term);
+    const allItems = await searchCJProducts(token, term);
+
+    // Filter out irrelevant products by checking name contains at least one keyword
+    const keywords = term.toLowerCase().split(' ').filter(w => w.length > 2);
+    const items = allItems.filter(item => {
+      const name = (item.productNameEn || item.productName || '').toLowerCase();
+      return keywords.some(kw => name.includes(kw));
+    });
 
     if(!items.length){
       await saveCatalogFile(catalog, sha);
-      return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No results'})};
+      return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No relevant results'})};
     }
 
-    catalog[term] = items.map((item,i)=>{
+    catalog[term] = items.slice(0, 50).map((item,i)=>{
       const rawPrice = parseFloat(item.sellPrice||item.productPrice||0);
       const rawName = item.productNameEn||item.productName||term;
+      // Deduplicate repeated names from CJ
       const words = rawName.split(' ');
       const half = Math.ceil(words.length/2);
       const firstHalf = words.slice(0,half).join(' ');
       const cleanName = rawName.toLowerCase().endsWith(firstHalf.toLowerCase()) ? firstHalf : rawName;
+
       return {
         id:`cj-${item.pid||item.productId||i}-${Date.now()}`,
         name:cleanName,
@@ -171,7 +188,7 @@ exports.handler = async function(){
         rating:4.5,
         reviews:Math.floor(Math.random()*20000)+200,
         hot:i<3,
-        desc:item.remark||item.productUnit||`Quality ${term} — shipped direct to your door.`,
+        desc:cleanDesc(item.remark)||`Quality ${term} — shipped direct to your door.`,
         thumbnail:item.productImage||null,
         stock:item.inventoryQuantity||Math.floor(Math.random()*40)+3,
         cjPid:item.pid||item.productId,
