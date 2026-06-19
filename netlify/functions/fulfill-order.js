@@ -1,67 +1,79 @@
-const Stripe = require('stripe');
-const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
+exports.handler = async function(event) {
+  console.log('Function invoked');
+  console.log('Method:', event.httpMethod);
 
-async function getCJToken(apiKey){
-  const res = await fetch(`${CJ_BASE}/authentication/getAccessToken`,{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({apiKey})});
-  const data = await res.json();
-  if(!data.result) throw new Error(`CJ auth failed: ${data.message}`);
-  return data.data.accessToken;
-}
-async function createCJOrder(token,{buyerName,address,items}){
-  const res = await fetch(`${CJ_BASE}/shopping/order/createOrderV2`,{
-    method:'POST',
-    headers:{'CJ-Access-Token':token,'Content-Type':'application/json'},
-    body:JSON.stringify({
-      orderNumber:`WB-${Date.now()}`,
-      shippingName:buyerName,
-      shippingCountry:address.country||'US',
-      shippingState:address.state||'',
-      shippingCity:address.city||'',
-      shippingAddress:address.line1||'',
-      shippingAddress2:address.line2||'',
-      shippingZip:address.postal_code||'',
-      shippingPhone:'0000000000',
-      products:items.map(i=>({vid:i.cjPid,quantity:1})),
-    })});
-  return res.json();
-}
-exports.handler = async function(event){
-  if(event.httpMethod!=='POST') return {statusCode:405,body:'Method Not Allowed'};
-  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
- let stripeEvent;
-try{
-  stripeEvent = stripe.webhooks.constructEvent(
-    event.body,event.headers['stripe-signature'],process.env.STRIPE_WEBHOOK_SECRET);
-}catch(err){
-  console.log('Signature verification failed:', err.message);
-  console.log('Proceeding without verification for debugging...');
-  stripeEvent = JSON.parse(event.body);
-}
-  if(stripeEvent.type!=='checkout.session.completed')
-    return {statusCode:200,body:'Event received but not processed'};
-  try{
-    const session = stripeEvent.data.object;
-const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-  expand: ['line_items'],
-});
-const shipping = session.shipping_details || session.customer_details;
-const lineItems = fullSession.line_items?.data || [];
-    if(!shipping||!lineItems.length) return {statusCode:200,body:'No shipping info'};
-    const token = await getCJToken(process.env.CJ_API_KEY);
-    const items = lineItems.map(i=>({name:i.description,cjPid:i.price?.metadata?.cjPid||null}));
-console.log('Items from checkout:', JSON.stringify(items));
-const fulfillable = items.filter(i=>i.cjPid);
-console.log('Fulfillable items:', JSON.stringify(fulfillable));
-if(fulfillable.length){
-      const result = await createCJOrder(token,{buyerName:shipping.name,
-        address:shipping.address,items:fulfillable});
-      console.log('CJ order result:',JSON.stringify(result));
+  if(event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+
+  try {
+    const Stripe = require('stripe');
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+    const payload = JSON.parse(event.body);
+
+    console.log('Event type:', payload.type);
+
+    if(payload.type !== 'checkout.session.completed') {
+      return { statusCode: 200, body: 'Not a checkout event' };
     }
-    return {statusCode:200,body:'Fulfillment processed'};
-  }catch(err){
-    console.error(err);
-    return {statusCode:500,body:JSON.stringify({error:err.message})};
+
+    const session = payload.data.object;
+    const shipping = session.shipping_details || session.customer_details;
+    console.log('Shipping:', JSON.stringify(shipping));
+
+    const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+      expand: ['line_items'],
+    });
+    const lineItems = fullSession.line_items?.data || [];
+    console.log('Line items count:', lineItems.length);
+    console.log('Line items:', JSON.stringify(lineItems.map(i => ({
+      name: i.description,
+      cjPid: i.price?.product_data?.metadata?.cjPid || null
+    }))));
+
+    const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
+    const tokenRes = await fetch(`${CJ_BASE}/authentication/getAccessToken`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ apiKey: process.env.CJ_API_KEY }),
+    });
+    const tokenData = await tokenRes.json();
+    console.log('CJ token result:', tokenData.result);
+
+    if(tokenData.result && shipping) {
+      const products = lineItems
+        .map(i => ({ vid: i.price?.product_data?.metadata?.cjPid || '', quantity: 1 }))
+        .filter(i => i.vid);
+
+      console.log('CJ products to order:', JSON.stringify(products));
+
+      if(products.length) {
+        const orderRes = await fetch(`${CJ_BASE}/shopping/order/createOrderV2`, {
+          method: 'POST',
+          headers: { 'CJ-Access-Token': tokenData.data.accessToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderNumber: `WB-${Date.now()}`,
+            shippingName: shipping.name || 'Customer',
+            shippingCountry: shipping.address?.country || 'US',
+            shippingState: shipping.address?.state || '',
+            shippingCity: shipping.address?.city || '',
+            shippingAddress: shipping.address?.line1 || '',
+            shippingAddress2: shipping.address?.line2 || '',
+            shippingZip: shipping.address?.postal_code || '',
+            shippingPhone: '0000000000',
+            products,
+          }),
+        });
+        const orderData = await orderRes.json();
+        console.log('CJ order result:', JSON.stringify(orderData));
+      } else {
+        console.log('No CJ product IDs found on line items');
+      }
+    }
+
+    return { statusCode: 200, body: 'OK' };
+  } catch(err) {
+    console.error('Error:', err.message, err.stack);
+    return { statusCode: 500, body: err.message };
   }
 };
