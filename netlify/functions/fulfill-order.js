@@ -41,10 +41,11 @@ exports.handler = async function(event){
     return {statusCode:200,body:'Event received but not processed'};
   try{
     const session = stripeEvent.data.object;
-    const fullSession = await stripe.checkout.sessions.retrieve(session.id,
-      {expand:['line_items','shipping_details']});
-    const shipping = fullSession.shipping_details;
-    const lineItems = fullSession.line_items?.data || [];
+const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+  expand: ['line_items'],
+});
+const shipping = session.shipping_details || session.customer_details;
+const lineItems = fullSession.line_items?.data || [];
     if(!shipping||!lineItems.length) return {statusCode:200,body:'No shipping info'};
     const token = await getCJToken(process.env.CJ_API_KEY);
     const items = lineItems.map(i=>({name:i.description,cjPid:i.price?.metadata?.cjPid||null}));
