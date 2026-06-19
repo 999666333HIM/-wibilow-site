@@ -60,7 +60,13 @@ exports.handler = async function(){
     if(!items.length) return {statusCode:200,body:JSON.stringify({updated:term,count:0})};
     catalog[term] = items.map((item,i)=>({
       id:`cj-${item.pid||item.productId||i}`,
-      name:item.productNameEn||item.productName||term,
+      name:(()=>{
+  const raw=item.productNameEn||item.productName||term;
+  const words=raw.split(' ');
+  const half=Math.ceil(words.length/2);
+  const firstHalf=words.slice(0,half).join(' ');
+  return raw.endsWith(firstHalf)?firstHalf:raw;
+})(),
       cat:term, icon:pickEmoji(term),
       displayPrice:markupPrice(parseFloat(item.sellPrice||item.productPrice||0)),
       rating:4.5, reviews:Math.floor(Math.random()*8000)+200,
