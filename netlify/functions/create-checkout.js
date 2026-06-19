@@ -20,7 +20,8 @@ exports.handler = async function(event){
       mode:'payment',
       line_items,
       shipping_address_collection:{allowed_countries:['US','CA','GB','AU']},
-      success_url:`${siteUrl}/success.html`,
+automatic_tax:{ enabled:true },      
+success_url:`${siteUrl}/success.html`,
       cancel_url:`${siteUrl}/`,
     });
     return {statusCode:200,body:JSON.stringify({url:session.url})};
