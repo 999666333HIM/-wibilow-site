@@ -105,7 +105,7 @@ async function searchAliExpress(term){
     'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
   };
   let allResults = [];
-  for(let page = 1; page <= 3; page++){
+  for(let page = 1; page <= 4; page++){
     const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(term)}&page=${page}&sort=salesDesc`;
     try{
       const res = await fetch(url, {headers});
