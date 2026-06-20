@@ -26,7 +26,7 @@ exports.handler = async function(event){
       mode:'payment',
       line_items,
       shipping_address_collection:{allowed_countries:['US','CA','GB','AU']},
-      automatic_tax:{enabled:true},
+      automatic_tax:{enabled:process.env.STRIPE_SECRET_KEY?.startsWith('sk_live_')},
       success_url:`${siteUrl}/success.html`,
       cancel_url:`${siteUrl}/`,
     });

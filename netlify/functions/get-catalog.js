@@ -34,7 +34,8 @@ exports.handler = async function () {
     desc: item.desc,
     thumbnail: item.thumbnail,
     stock: item.stock,
-    cjPid: item.cjPid || null,  // ← add this line if missing
+   cjPid: item.cjPid || null,
+aliUrl: item.aliUrl || null,
   });
 });
     });
