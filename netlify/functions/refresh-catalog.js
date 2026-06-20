@@ -100,15 +100,28 @@ function pickCat(term){
 }
 
 async function searchAliExpress(term){
-  const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(term)}&page=1&sort=salesDesc`;
-  const res = await fetch(url, {
-    headers: {
-      'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
-      'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
+  // Try multiple endpoints in case one fails
+  const urls = [
+    `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(term)}&page=1`,
+    `https://aliexpress-datahub.p.rapidapi.com/item_search?q=${encodeURIComponent(term)}&page=1`,
+    `https://aliexpress-datahub.p.rapidapi.com/item_search_3?q=${encodeURIComponent(term)}&page=1`,
+  ];
+  const headers = {
+    'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+    'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
+  };
+  for(const url of urls){
+    try{
+      const res = await fetch(url, {headers});
+      const data = await res.json();
+      console.log('Tried:', url, 'Response keys:', Object.keys(data));
+      const list = data?.result?.resultList || data?.resultList || data?.data?.result?.resultList || [];
+      if(list.length) return list;
+    }catch(e){
+      console.log('Endpoint failed:', url, e.message);
     }
-  });
-  const data = await res.json();
-  return data?.result?.resultList || data?.resultList || [];
+  }
+  return [];
 }
 
 async function githubRequest(path, options={}){
