@@ -1,5 +1,5 @@
 {
-  "__runIndex": 39,
+  "__runIndex": 40,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -16467,6 +16467,83 @@
       "stock": 9,
       "cjPid": "2020077076177133570",
       "lastUpdated": "2026-06-20T09:38:19.051Z"
+    }
+  ],
+  "leather wallet": [
+    {
+      "id": "cj-2606171032521624000-1781948359144",
+      "name": "Printed Leather Wallet Keychain For Women",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 13,
+      "rating": 4.5,
+      "reviews": 16046,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/d241405e-4697-4d77-b302-aa76ca67de13.jpg",
+      "stock": 8,
+      "cjPid": "2606171032521624000",
+      "lastUpdated": "2026-06-20T09:39:19.144Z"
+    },
+    {
+      "id": "cj-2606171016371632300-1781948359144",
+      "name": "Beaded Bracelet Keychain Wallet Fruit",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 13,
+      "rating": 4.5,
+      "reviews": 16712,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/2c325207-84db-4bde-8245-8518a2772137.jpg",
+      "stock": 25,
+      "cjPid": "2606171016371632300",
+      "lastUpdated": "2026-06-20T09:39:19.144Z"
+    },
+    {
+      "id": "cj-2066811501161779202-1781948359144",
+      "name": "Smart Card Tracker For Find My, Anti-Lost Locator IP68 Waterproof Built-in Speaker, 90-Day Battery Life, Ultra-Slim Wallet Tracker",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 27,
+      "rating": 4.5,
+      "reviews": 19713,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/1ce89303-9f11-4986-97d4-29247e105199.jpg",
+      "stock": 23,
+      "cjPid": "2066811501161779202",
+      "lastUpdated": "2026-06-20T09:39:19.144Z"
+    },
+    {
+      "id": "cj-2065704535170371585-1781948359144",
+      "name": "Cartoon Wallet With Lightweight Portable Wooden Animal Plaque, Adorable Fox, Lion & Bear Designs, Perfect Gift Choice",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 19835,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/48c5d76f-004c-46de-83c3-1ea5e900770c.jpg",
+      "stock": 41,
+      "cjPid": "2065704535170371585",
+      "lastUpdated": "2026-06-20T09:39:19.144Z"
+    },
+    {
+      "id": "cj-2065612497341935617-1781948359144",
+      "name": "Women Handbags Shoulder Bags 4 Pcs Handbags For Ladies Top-Handles Crossbody Bags Purse Wallet",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 28,
+      "rating": 4.5,
+      "reviews": 1180,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/d5665ee2-0774-4ab4-a899-c71d97f28861.jpg",
+      "stock": 5,
+      "cjPid": "2065612497341935617",
+      "lastUpdated": "2026-06-20T09:39:19.144Z"
     }
   ]
 }
