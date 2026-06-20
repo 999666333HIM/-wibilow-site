@@ -1,5 +1,5 @@
 {
-  "__runIndex": 18,
+  "__runIndex": 19,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -8897,6 +8897,38 @@
       "stock": 13,
       "cjPid": "2061372288801198081",
       "lastUpdated": "2026-06-20T02:39:51.380Z"
+    }
+  ],
+  "air fryer": [
+    {
+      "id": "cj-2606130700031613200-1781923259857",
+      "name": "Household Multi-Function 2-in-1 Air Fryer",
+      "cat": "Home",
+      "icon": "🍳",
+      "displayPrice": 56,
+      "rating": 4.5,
+      "reviews": 17901,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://oss-cf.cjdropshipping.com/product/2026/06/13/06/b8793e65-42f2-4b96-83a3-1776cfef2877_fine.jpeg",
+      "stock": 15,
+      "cjPid": "2606130700031613200",
+      "lastUpdated": "2026-06-20T02:40:59.857Z"
+    },
+    {
+      "id": "cj-2060980481234456577-1781923259857",
+      "name": "2x Air Fryer Silicone Pot Rectangle Baking Tray Basket Liners Insert Dish",
+      "cat": "Home",
+      "icon": "🍳",
+      "displayPrice": 23,
+      "rating": 4.5,
+      "reviews": 12508,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/e9add4a2-0462-472c-8a75-61bf6f4fa8cc.jpg",
+      "stock": 38,
+      "cjPid": "2060980481234456577",
+      "lastUpdated": "2026-06-20T02:40:59.857Z"
     }
   ]
 }
