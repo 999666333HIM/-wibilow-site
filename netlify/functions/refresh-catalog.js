@@ -169,11 +169,6 @@ const items = allItems.filter(item => {
   return matches.length >= Math.min(2, keywords.length);
 });
 
-    const items = allItems.filter(item => {
-      const name = (item.productNameEn || item.productName || '').toLowerCase();
-      return specificKeyword && name.includes(specificKeyword);
-    });
-
     if(!items.length){
       await saveCatalogFile(catalog, sha);
       return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No relevant results'})};
