@@ -368,7 +368,7 @@ const DEFAULT_PRODUCTS=[
   {id:20,name:'Peloton Bike Mat',cat:'Sports',icon:'🚴',price:52,rating:4.5,reviews:7600,hot:false,desc:'High-density foam protects floors and reduces noise during intense sessions.'},
 ];
 
-let products=[],cart=[],activeCat='All',searchQ='';
+let products=[],cart=[],activeCat='All',searchQ='',catalogLoaded=false;
 
 async function loadRealCatalog(){
   try{
@@ -558,7 +558,6 @@ document.getElementById('priceMax').addEventListener('input',renderProducts);
 document.getElementById('sortSelect').addEventListener('change',renderProducts);
 
 renderAll();
-loadRealCatalog();
-</script>
+setTimeout(loadRealCatalog, 500);</script>
 </body>
 </html>
