@@ -23,7 +23,6 @@ const SEARCH_TERMS = [
 const GITHUB_OWNER = '999666333HIM';
 const GITHUB_REPO = '-wibilow-site';
 const GITHUB_FILE_PATH = 'catalog.json';
-const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
 
 function markupPrice(p){
   if(p === 0) return 0;
@@ -100,22 +99,16 @@ function pickCat(term){
   return 'General';
 }
 
-async function getCJToken(apiKey){
-  const res = await fetch(`${CJ_BASE}/authentication/getAccessToken`,{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({apiKey})});
+async function searchAliExpress(term){
+  const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(term)}&page=1&sort=salesDesc`;
+  const res = await fetch(url, {
+    headers: {
+      'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+      'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
+    }
+  });
   const data = await res.json();
-  if(!data.result) throw new Error(`CJ auth failed: ${data.message}`);
-  return data.data.accessToken;
-}
-
-async function searchCJProducts(token, keyword){
-  const params = new URLSearchParams({productNameEn:keyword,pageNum:1,pageSize:50});
-  const res = await fetch(`${CJ_BASE}/product/list?${params}`,{
-    headers:{'CJ-Access-Token':token}});
-  const data = await res.json();
-  if(!data.result) throw new Error(`CJ search failed: ${data.message}`);
-  return data.data?.list || [];
+  return data?.result?.resultList || data?.resultList || [];
 }
 
 async function githubRequest(path, options={}){
@@ -137,7 +130,7 @@ async function getCurrentCatalogFile(){
 
 async function saveCatalogFile(newContent, sha){
   const body={
-    message:'Update product catalog via CJ',
+    message:'Update product catalog via AliExpress',
     content:Buffer.from(JSON.stringify(newContent,null,2)).toString('base64')
   };
   if(sha) body.sha=sha;
@@ -146,8 +139,7 @@ async function saveCatalogFile(newContent, sha){
 
 exports.handler = async function(){
   try{
-    const apiKey = process.env.CJ_API_KEY;
-    if(!apiKey) return {statusCode:500,body:'Missing CJ_API_KEY'};
+    if(!process.env.RAPIDAPI_KEY) return {statusCode:500,body:'Missing RAPIDAPI_KEY'};
     if(!process.env.GITHUB_TOKEN) return {statusCode:500,body:'Missing GITHUB_TOKEN'};
 
     const {content:catalog, sha} = await getCurrentCatalogFile();
@@ -155,47 +147,31 @@ exports.handler = async function(){
     const term = SEARCH_TERMS[runIndex % SEARCH_TERMS.length];
     catalog.__runIndex = (runIndex + 1) % SEARCH_TERMS.length;
 
-    const token = await getCJToken(apiKey);
-    const allItems = await searchCJProducts(token, term);
+    const results = await searchAliExpress(term);
 
-    // Use last meaningful word as strict filter
-    const stopwords = ['and','for','the','with','set','kids','plus','size','mini'];
-    const meaningfulWords = term.toLowerCase().split(' ')
-      .filter(w => !stopwords.includes(w) && w.length > 3);
-    const strictKeyword = meaningfulWords[meaningfulWords.length - 1];
-
-    const items = allItems.filter(item => {
-      const name = (item.productNameEn || item.productName || '').toLowerCase();
-      return strictKeyword && name.includes(strictKeyword);
-    });
-
-    if(!items.length){
+    if(!results.length){
       await saveCatalogFile(catalog, sha);
-      return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No relevant results'})};
+      return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No results'})};
     }
 
-    catalog[term] = items.slice(0,50).map((item,i)=>{
-      const rawPrice = parseFloat(item.sellPrice||item.productPrice||0);
+    catalog[term] = results.slice(0,30).map((entry,i)=>{
+      const item = entry.item || entry;
+      const rawPrice = parseFloat(item.promotionPrice || item.price || 0);
       const displayPrice = markupPrice(rawPrice);
       if(displayPrice < 10 || rawPrice === 0) return null;
-      const rawName = item.productNameEn||item.productName||term;
-      const words = rawName.split(' ');
-      const half = Math.ceil(words.length/2);
-      const firstHalf = words.slice(0,half).join(' ');
-      const cleanName = rawName.toLowerCase().endsWith(firstHalf.toLowerCase()) ? firstHalf : rawName;
       return {
-        id:`cj-${item.pid||item.productId||i}-${Date.now()}`,
-        name:cleanName,
+        id:`ae-${item.itemId||i}-${Date.now()}`,
+        name:item.title||term,
         cat:pickCat(term),
         icon:pickEmoji(term),
         displayPrice,
-        rating:4.5,
-        reviews:Math.floor(Math.random()*20000)+200,
+        rating:parseFloat(item.averageStarRate||4.5),
+        reviews:parseInt(item.sales||Math.floor(Math.random()*10000)+100),
         hot:i<3,
-        desc:cleanDesc(item.remark)||'Shipped direct to your door.',
-        thumbnail:item.productImage||null,
-        stock:item.inventoryQuantity||Math.floor(Math.random()*40)+3,
-        cjPid:item.pid||item.productId,
+        desc:'Shipped direct to your door.',
+        thumbnail:item.image?(item.image.startsWith('http')?item.image:'https:'+item.image):null,
+        stock:Math.floor(Math.random()*40)+5,
+        aliUrl:item.itemUrl?(item.itemUrl.startsWith('http')?item.itemUrl:'https:'+item.itemUrl):null,
         lastUpdated:new Date().toISOString(),
       };
     }).filter(Boolean);
