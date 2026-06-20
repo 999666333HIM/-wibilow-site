@@ -1,5 +1,5 @@
 {
-  "__runIndex": 33,
+  "__runIndex": 34,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -14190,6 +14190,38 @@
       "stock": 19,
       "cjPid": "2065694681404514305",
       "lastUpdated": "2026-06-20T02:43:36.575Z"
+    }
+  ],
+  "silicone spatula": [
+    {
+      "id": "cj-2606190346471628800-1781924787669",
+      "name": "Cooking Spoon And Spatula Kitchen Utensil Set",
+      "cat": "Home",
+      "icon": "🥄",
+      "displayPrice": 16,
+      "rating": 4.5,
+      "reviews": 6275,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://oss-cf.cjdropshipping.com/product/2026/06/19/03/0a972f45-f10b-4fa8-a4e9-9d81575ebe44.jpg",
+      "stock": 40,
+      "cjPid": "2606190346471628800",
+      "lastUpdated": "2026-06-20T03:06:27.669Z"
+    },
+    {
+      "id": "cj-2606130508541632900-1781924787670",
+      "name": "Stainless Steel Barbecue Spatula And Cookware Set",
+      "cat": "Home",
+      "icon": "🥄",
+      "displayPrice": 17,
+      "rating": 4.5,
+      "reviews": 958,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/44f4a5a7-5269-4e2c-8573-efe2cb662a70.jpg",
+      "stock": 8,
+      "cjPid": "2606130508541632900",
+      "lastUpdated": "2026-06-20T03:06:27.670Z"
     }
   ]
 }
