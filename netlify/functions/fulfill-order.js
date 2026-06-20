@@ -40,10 +40,13 @@ exports.handler = async function(event){
     }
     const session = payload.data.object;
     const shipping = session.shipping_details || session.customer_details;
+
+    // Expand line items AND product metadata
     const fullSession = await stripe.checkout.sessions.retrieve(session.id,{
-  expand:['line_items','line_items.data.price.product'],
-});
+      expand:['line_items','line_items.data.price.product'],
+    });
     const lineItems = fullSession.line_items?.data || [];
+
     const order = {
       id:`WB-${Date.now()}`,
       stripeSessionId:session.id,
@@ -62,15 +65,18 @@ exports.handler = async function(event){
         }
       },
       items:lineItems.map(i=>({
-  name:i.description||'Unknown product',
-  quantity:i.quantity||1,
-  price:(i.amount_total/100).toFixed(2),
-  cjPid:i.price?.product_data?.metadata?.cjPid||i.price?.metadata?.cjPid||null,
-  aliUrl:i.price?.product_data?.metadata?.aliUrl||i.price?.metadata?.aliUrl||null,
-})),,
+        name:i.description||'Unknown product',
+        quantity:i.quantity||1,
+        price:(i.amount_total/100).toFixed(2),
+        cjPid:i.price?.product?.metadata?.cjPid||null,
+        aliUrl:i.price?.product?.metadata?.aliUrl||null,
+      })),
       total:(session.amount_total/100).toFixed(2),
       currency:session.currency||'usd',
     };
+
+    console.log('Order items:', JSON.stringify(order.items));
+
     const {content:orders, sha} = await getOrdersFile();
     orders.unshift(order);
     if(orders.length > 500) orders.length = 500;
