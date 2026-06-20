@@ -158,16 +158,14 @@ exports.handler = async function(){
     const token = await getCJToken(apiKey);
     const allItems = await searchCJProducts(token, term);
 
-    const keywords = term.toLowerCase().split(' ').filter(w =>
-  !['and','for','the','with','set','kids','supplies'].includes(w) && w.length > 3
-);
-
-const items = allItems.filter(item => {
-  const name = (item.productNameEn || item.productName || '').toLowerCase();
-  // Must match AT LEAST 2 keywords, or the most specific one (last keyword)
-  const matches = keywords.filter(kw => name.includes(kw));
-return matches.length >= 1;
-);
+    // Filter: product name must contain at least one keyword from the search term
+    // Excludes common stopwords to avoid false matches like "wireless bra" matching "wireless earbuds"
+    const stopwords = ['and','for','the','with','set','kids','supplies','plus','size'];
+    const keywords = term.toLowerCase().split(' ').filter(w => !stopwords.includes(w) && w.length > 3);
+    const items = allItems.filter(item => {
+      const name = (item.productNameEn || item.productName || '').toLowerCase();
+      return keywords.some(kw => name.includes(kw));
+    });
 
     if(!items.length){
       await saveCatalogFile(catalog, sha);
