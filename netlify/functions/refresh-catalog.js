@@ -100,17 +100,26 @@ function pickCat(term){
 }
 
 async function searchAliExpress(term){
-  const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(term)}&page=1&sort=salesDesc`;
-  const res = await fetch(url, {
-    headers: {
-      'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
-      'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
+  const headers = {
+    'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+    'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
+  };
+  let allResults = [];
+  for(let page = 1; page <= 3; page++){
+    const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(term)}&page=${page}&sort=salesDesc`;
+    try{
+      const res = await fetch(url, {headers});
+      const data = await res.json();
+      const list = data?.result?.resultList || [];
+      if(!list.length) break;
+      allResults = [...allResults, ...list];
+    }catch(e){
+      console.log('Page error:', page, e.message);
+      break;
     }
-  });
-  const data = await res.json();
-  return data?.result?.resultList || data?.resultList || [];
+  }
+  return allResults;
 }
-
 async function githubRequest(path, options={}){
   const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/${path}`,{
     ...options,headers:{
