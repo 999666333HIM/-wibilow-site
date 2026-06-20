@@ -1,5 +1,5 @@
 {
-  "__runIndex": 19,
+  "__runIndex": 20,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -8929,6 +8929,38 @@
       "stock": 38,
       "cjPid": "2060980481234456577",
       "lastUpdated": "2026-06-20T02:40:59.857Z"
+    }
+  ],
+  "coffee maker": [
+    {
+      "id": "cj-2065372403000201218-1781923267576",
+      "name": "Coffee Pot Dangle Charm 925 Sterling Silver Sparkling Coffee Maker Pendant Bead For DIY Charm Bracelet Necklace Vintage Kitchen Jewelry Gift",
+      "cat": "Home",
+      "icon": "☕",
+      "displayPrice": 24,
+      "rating": 4.5,
+      "reviews": 2611,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://shopify-images-sy.oss-cn-beijing.aliyuncs.com/20260609_v05/PD0243/PD0243.jpg",
+      "stock": 21,
+      "cjPid": "2065372403000201218",
+      "lastUpdated": "2026-06-20T02:41:07.576Z"
+    },
+    {
+      "id": "cj-2065367492945801218-1781923267576",
+      "name": "1Pc 3 In 1 Standing Bubble Machine With Colorful Lights And Music Rechargeable Bubble Maker Stand With 2 Modes 3 Adjustable Height For Party Wedding Indoor Outdoor Occasions Pets Kids Aged 3 Above",
+      "cat": "Home",
+      "icon": "☕",
+      "displayPrice": 37,
+      "rating": 4.5,
+      "reviews": 11911,
+      "hot": true,
+      "desc": "Lucy",
+      "thumbnail": "https://cf.cjdropshipping.com/75ee9b5d-759d-4e5b-8326-028e88cd7695.jpg",
+      "stock": 20,
+      "cjPid": "2065367492945801218",
+      "lastUpdated": "2026-06-20T02:41:07.576Z"
     }
   ]
 }
