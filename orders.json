@@ -1,0 +1,31 @@
+[
+  {
+    "id": "WB-1781992796532",
+    "stripeSessionId": "cs_test_a10BEGQvPYrET1gmuCh32vqjzW16vRE6mOdqbHNzNij1acDq9188WZ6nLE",
+    "status": "pending",
+    "createdAt": "2026-06-20T21:59:56.532Z",
+    "buyer": {
+      "name": "dkkekdk",
+      "email": "dko@gmsil.com",
+      "address": {
+        "line1": "9856 oning",
+        "line2": "",
+        "city": "lincoln",
+        "state": "TX",
+        "zip": "88555",
+        "country": "US"
+      }
+    },
+    "items": [
+      {
+        "name": "5-in-1 Type-C Hub & USB-C Dock - Multi-Function Adapter for Phone, PC, and Mac",
+        "quantity": 1,
+        "price": "10.00",
+        "cjPid": null,
+        "aliUrl": null
+      }
+    ],
+    "total": "10.00",
+    "currency": "usd"
+  }
+]
