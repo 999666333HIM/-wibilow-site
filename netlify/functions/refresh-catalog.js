@@ -1,12 +1,12 @@
 const SEARCH_TERMS = [
-  'wireless earbuds','bluetooth speaker','smartwatch','laptop stand',
+  'earbuds','bluetooth speaker','smartwatch','laptop stand',
   'phone case','usb hub','webcam','mechanical keyboard','gaming mouse',
   'portable charger','led desk lamp','smart plug','ring light','tablet stand',
-  'wireless charger','hdmi cable','monitor light bar','cable organizer',
+  'qi charger','hdmi cable','monitor light bar','cable organizer',
   'air fryer','coffee maker','robot vacuum','instant pot','blender',
   'mattress topper','throw pillow','scented candle','storage organizer',
-  'shower curtain','bath towel set','kitchen knife set','cast iron pan',
-  'ice cube tray','dish drying rack','silicone spatula','electric kettle',
+  'shower curtain','bath towel','kitchen knife','cast iron pan',
+  'ice cube tray','dish rack','silicone spatula','electric kettle',
   'running shoes','gym leggings','baseball cap','sunglasses','leather wallet',
   'tote bag','winter scarf','compression socks','sports bra','hoodie',
   'minimalist watch','canvas sneakers','crossbody bag',
@@ -16,8 +16,8 @@ const SEARCH_TERMS = [
   'resistance bands','yoga mat','water bottle','jump rope','foam roller',
   'gym gloves','protein shaker','ankle weights','pull up bar','knee sleeve',
   'dog collar','cat toy','pet bed','dog harness','cat scratcher',
-  'fidget toy','building blocks','art supplies for kids','kids headphones',
-  'garden gloves','plant pot','watering can','led grow light','pruning shears',
+  'fidget toy','building blocks','art supplies','kids headphones',
+  'garden gloves','plant pot','watering can','grow light','pruning shears',
 ];
 
 const GITHUB_OWNER = '999666333HIM';
@@ -37,17 +37,17 @@ function cleanDesc(raw){
 
 function pickEmoji(term){
   const map = {
-    'wireless earbuds':'🎧','bluetooth speaker':'🔊','smartwatch':'⌚',
+    'earbuds':'🎧','bluetooth speaker':'🔊','smartwatch':'⌚',
     'laptop stand':'💻','phone case':'📱','usb hub':'🔌','webcam':'📷',
     'mechanical keyboard':'⌨️','gaming mouse':'🖱️','portable charger':'🔋',
     'led desk lamp':'💡','smart plug':'🔌','ring light':'💡','tablet stand':'📱',
-    'wireless charger':'🔋','hdmi cable':'📺','monitor light bar':'💡',
+    'qi charger':'🔋','hdmi cable':'📺','monitor light bar':'💡',
     'cable organizer':'🔌','air fryer':'🍳','coffee maker':'☕',
     'robot vacuum':'🤖','instant pot':'🍲','blender':'🥤',
     'mattress topper':'🛏️','throw pillow':'🛋️','scented candle':'🕯️',
-    'storage organizer':'📦','shower curtain':'🚿','bath towel set':'🛁',
-    'kitchen knife set':'🔪','cast iron pan':'🍳','ice cube tray':'🧊',
-    'dish drying rack':'🍽️','silicone spatula':'🥄','electric kettle':'☕',
+    'storage organizer':'📦','shower curtain':'🚿','bath towel':'🛁',
+    'kitchen knife':'🔪','cast iron pan':'🍳','ice cube tray':'🧊',
+    'dish rack':'🍽️','silicone spatula':'🥄','electric kettle':'☕',
     'running shoes':'👟','gym leggings':'🏃','baseball cap':'🧢',
     'sunglasses':'🕶️','leather wallet':'👜','tote bag':'👜',
     'winter scarf':'🧣','compression socks':'🧦','sports bra':'👙',
@@ -62,21 +62,21 @@ function pickEmoji(term){
     'protein shaker':'🥤','ankle weights':'💪','pull up bar':'💪',
     'knee sleeve':'🦵','dog collar':'🐕','cat toy':'🐈',
     'pet bed':'🐾','dog harness':'🐕','cat scratcher':'🐈',
-    'fidget toy':'🎯','building blocks':'🧱','art supplies for kids':'🎨',
+    'fidget toy':'🎯','building blocks':'🧱','art supplies':'🎨',
     'kids headphones':'🎧','garden gloves':'🌱','plant pot':'🪴',
-    'watering can':'🌿','led grow light':'💡','pruning shears':'✂️',
+    'watering can':'🌿','grow light':'💡','pruning shears':'✂️',
   };
   return map[term] || '🛍️';
 }
 
 function pickCat(term){
-  const electronics=['wireless earbuds','bluetooth speaker','smartwatch','laptop stand',
+  const electronics=['earbuds','bluetooth speaker','smartwatch','laptop stand',
     'phone case','usb hub','webcam','mechanical keyboard','gaming mouse','portable charger',
-    'led desk lamp','smart plug','ring light','tablet stand','wireless charger',
+    'led desk lamp','smart plug','ring light','tablet stand','qi charger',
     'hdmi cable','monitor light bar','cable organizer'];
   const home=['air fryer','coffee maker','robot vacuum','instant pot','blender',
     'mattress topper','throw pillow','scented candle','storage organizer','shower curtain',
-    'bath towel set','kitchen knife set','cast iron pan','ice cube tray','dish drying rack',
+    'bath towel','kitchen knife','cast iron pan','ice cube tray','dish rack',
     'silicone spatula','electric kettle'];
   const fashion=['running shoes','gym leggings','baseball cap','sunglasses','leather wallet',
     'tote bag','winter scarf','compression socks','sports bra','hoodie',
@@ -87,8 +87,8 @@ function pickCat(term){
   const sports=['resistance bands','yoga mat','water bottle','jump rope','foam roller',
     'gym gloves','protein shaker','ankle weights','pull up bar','knee sleeve'];
   const pets=['dog collar','cat toy','pet bed','dog harness','cat scratcher'];
-  const kids=['fidget toy','building blocks','art supplies for kids','kids headphones'];
-  const garden=['garden gloves','plant pot','watering can','led grow light','pruning shears'];
+  const kids=['fidget toy','building blocks','art supplies','kids headphones'];
+  const garden=['garden gloves','plant pot','watering can','grow light','pruning shears'];
   if(electronics.includes(term)) return 'Electronics';
   if(home.includes(term)) return 'Home';
   if(fashion.includes(term)) return 'Fashion';
@@ -158,17 +158,16 @@ exports.handler = async function(){
     const token = await getCJToken(apiKey);
     const allItems = await searchCJProducts(token, term);
 
-    // Filter: product name must contain at least one keyword from the search term
-    // Excludes common stopwords to avoid false matches like "wireless bra" matching "wireless earbuds"
-    const stopwords = ['and','for','the','with','set','kids','supplies','plus','size'];
-    // Use ONLY the last meaningful word as the filter — most specific part of the term
-const stopwords = ['and','for','the','with','set','kids','supplies','plus','size'];
-const meaningfulWords = term.toLowerCase().split(' ').filter(w => !stopwords.includes(w) && w.length > 3);
-const strictKeyword = meaningfulWords[meaningfulWords.length - 1]; // e.g. "earbuds" from "wireless earbuds"
-const items = allItems.filter(item => {
-  const name = (item.productNameEn || item.productName || '').toLowerCase();
-  return strictKeyword && name.includes(strictKeyword);
-});
+    // Use last meaningful word as strict filter
+    const stopwords = ['and','for','the','with','set','kids','plus','size','mini'];
+    const meaningfulWords = term.toLowerCase().split(' ')
+      .filter(w => !stopwords.includes(w) && w.length > 3);
+    const strictKeyword = meaningfulWords[meaningfulWords.length - 1];
+
+    const items = allItems.filter(item => {
+      const name = (item.productNameEn || item.productName || '').toLowerCase();
+      return strictKeyword && name.includes(strictKeyword);
+    });
 
     if(!items.length){
       await saveCatalogFile(catalog, sha);
