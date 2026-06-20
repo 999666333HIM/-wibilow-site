@@ -1,5 +1,5 @@
 {
-  "__runIndex": 11,
+  "__runIndex": 12,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -4923,6 +4923,98 @@
       "stock": 17,
       "cjPid": "2066763565088227329",
       "lastUpdated": "2026-06-20T02:38:56.318Z"
+    }
+  ],
+  "smart plug": [
+    {
+      "id": "cj-2066373311722708994-1781923149218",
+      "name": "65  X 21  LED Full Length Wall Mirror, Irregular Shape Design, 3-Color Dimmable Lighting, 5mm Copper-Free Silver Glass, Hardwired Or Plug-in, For Entryway, Bedroom & Salon",
+      "cat": "Electronics",
+      "icon": "🔌",
+      "displayPrice": 215,
+      "rating": 4.5,
+      "reviews": 19255,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/17814816/710c0729-f07b-442f-837b-a1e4f1129644.jpg",
+      "stock": 34,
+      "cjPid": "2066373311722708994",
+      "lastUpdated": "2026-06-20T02:39:09.218Z"
+    },
+    {
+      "id": "cj-2066373960170766337-1781923149218",
+      "name": "LED Full Length Mirror With Lights, 63  X 24  Wall Mounted Full Body Mirror, Dimmable & 3 Color Lighting, Anti-Fog, Shatter-Proof, Memory Function, Plug-in Or Hardwired, Bedroom",
+      "cat": "Electronics",
+      "icon": "🔌",
+      "displayPrice": 204,
+      "rating": 4.5,
+      "reviews": 7381,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/17814816/b82d91c2-c066-4f53-944e-e226ec5cdd23.jpg",
+      "stock": 27,
+      "cjPid": "2066373960170766337",
+      "lastUpdated": "2026-06-20T02:39:09.218Z"
+    },
+    {
+      "id": "cj-2066372711518076929-1781923149218",
+      "name": "65  X 21  LED Full Length Wall Mirror, Symmetrical Arch Design With Frosted Glass Border, Dimmable 3 Color Temperature Lighting, Copper-Free Silver Glass, Hardwired Or Plug-In",
+      "cat": "Electronics",
+      "icon": "🔌",
+      "displayPrice": 214,
+      "rating": 4.5,
+      "reviews": 12308,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/17814816/e667a5d3-4c29-43ce-82e5-877df51c4a55.jpg",
+      "stock": 15,
+      "cjPid": "2066372711518076929",
+      "lastUpdated": "2026-06-20T02:39:09.218Z"
+    },
+    {
+      "id": "cj-2064223704602480641-1781923149218",
+      "name": "Basin Waste   40mm Adjustable Height For Bathroom, Universal Sink Plug - Black",
+      "cat": "Electronics",
+      "icon": "🔌",
+      "displayPrice": 16,
+      "rating": 4.5,
+      "reviews": 11806,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/a4c7835f-ff96-425b-8b14-dea97d15d35d.png",
+      "stock": 7,
+      "cjPid": "2064223704602480641",
+      "lastUpdated": "2026-06-20T02:39:09.218Z"
+    },
+    {
+      "id": "cj-2062429626114760706-1781923149218",
+      "name": "Fuel Gas Pump & Sending Unit 2 Plug For Chevy GMC Suburban 5.7L GFN",
+      "cat": "Electronics",
+      "icon": "🔌",
+      "displayPrice": 154,
+      "rating": 4.5,
+      "reviews": 7487,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/90725501-ea7e-4985-a560-90084dad051d.jpg",
+      "stock": 5,
+      "cjPid": "2062429626114760706",
+      "lastUpdated": "2026-06-20T02:39:09.218Z"
+    },
+    {
+      "id": "cj-2061631260115165185-1781923149218",
+      "name": "Protected Mains Extension Lead Power Cable Electric Plug Socket W Switched 3 USB",
+      "cat": "Electronics",
+      "icon": "🔌",
+      "displayPrice": 24,
+      "rating": 4.5,
+      "reviews": 12215,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/486dbfaf-d7f3-4399-9e07-42136aef9099.jpg",
+      "stock": 27,
+      "cjPid": "2061631260115165185",
+      "lastUpdated": "2026-06-20T02:39:09.218Z"
     }
   ]
 }
