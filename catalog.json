@@ -1,5 +1,5 @@
 {
-  "__runIndex": 9,
+  "__runIndex": 10,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -4379,6 +4379,68 @@
       "stock": 8,
       "cjPid": "2605060239561630200",
       "lastUpdated": "2026-06-20T02:38:31.826Z"
+    }
+  ],
+  "portable charger": [
+    {
+      "id": "cj-2067515896176304130-1781923121619",
+      "name": "For Dodge Charger 4pcs Smoke In Channel Window Visor Door Window Protection Trim",
+      "cat": "Electronics",
+      "icon": "🔋",
+      "displayPrice": 93,
+      "rating": 4.5,
+      "reviews": 15033,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/add155be-95ec-45d6-8fc3-279729c64ee6.jpg",
+      "stock": 12,
+      "cjPid": "2067515896176304130",
+      "lastUpdated": "2026-06-20T02:38:41.619Z"
+    },
+    {
+      "id": "cj-2067074412900442113-1781923121619",
+      "name": "Headlight & Dome Light Dimmer S Witch For 2005-13 Chrysler 300 Dodge Charger",
+      "cat": "Electronics",
+      "icon": "🔋",
+      "displayPrice": 74,
+      "rating": 4.5,
+      "reviews": 2151,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/ea7875e8-1e7a-412c-9b68-1536d5e1be25.jpg",
+      "stock": 40,
+      "cjPid": "2067074412900442113",
+      "lastUpdated": "2026-06-20T02:38:41.619Z"
+    },
+    {
+      "id": "cj-2067089107485122561-1781923121619",
+      "name": "Portable Solar Panel Foldable Solar Panel Charger For Power Station USB DC Devices 18V Output 10 Connectors High Efficiency IP68 Waterproof For Camping Outdoor RV Cloudy",
+      "cat": "Electronics",
+      "icon": "🔋",
+      "displayPrice": 126,
+      "rating": 4.5,
+      "reviews": 9308,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/3dd80fff-0705-4c74-b0f6-b3c6a8790614.jpg",
+      "stock": 15,
+      "cjPid": "2067089107485122561",
+      "lastUpdated": "2026-06-20T02:38:41.619Z"
+    },
+    {
+      "id": "cj-2606150620091620100-1781923121619",
+      "name": "MagSafe 15W Magnetic In-car Wireless Charger",
+      "cat": "Electronics",
+      "icon": "🔋",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 15239,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://oss-cf.cjdropshipping.com/product/2026/06/15/06/a450e495-895e-4864-b282-2f188cc37258_trans.jpeg",
+      "stock": 32,
+      "cjPid": "2606150620091620100",
+      "lastUpdated": "2026-06-20T02:38:41.619Z"
     }
   ]
 }
