@@ -175,7 +175,7 @@ exports.handler = async function(){
     catalog[term] = items.slice(0,50).map((item,i)=>{
       const rawPrice = parseFloat(item.sellPrice||item.productPrice||0);
       const displayPrice = markupPrice(rawPrice);
-      if(displayPrice < 15 || rawPrice === 0) return null;
+      if(displayPrice < 10 || rawPrice === 0) return null;
       const rawName = item.productNameEn||item.productName||term;
       const words = rawName.split(' ');
       const half = Math.ceil(words.length/2);
