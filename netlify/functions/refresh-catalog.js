@@ -190,7 +190,7 @@ exports.handler = async function(){
         rating:4.5,
         reviews:Math.floor(Math.random()*20000)+200,
         hot:i<3,
-        desc:cleanDesc(item.remark)||`Quality ${term} — shipped direct to your door.`,
+        desc:cleanDesc(item.remark)||'Shipped direct to your door.',
         thumbnail:item.productImage||null,
         stock:item.inventoryQuantity||Math.floor(Math.random()*40)+3,
         cjPid:item.pid||item.productId,
