@@ -297,17 +297,19 @@ function renderTable(){
       <td><span class="price-cost mono">~$${cost} + $${AVG_SHIPPING} ship</span></td>
       <td><span class="profit ${profitClass} mono">${profit > 0 ? '+' : ''}$${profit}</span></td>
       <td><span class="stock-badge ${stockClass}">${p.stock||'?'} left</span></td>
-      <td>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <span class="cj-id" title="${p.cjPid||'N/A'}">${p.cjPid||'N/A'}</span>
-          ${p.cjPid ? `<button class="copy-btn" onclick="copyId('${p.cjPid}',this)">Copy</button>` : ''}
-        </div>
-      </td>
-      <td>
-        ${p.cjPid
-          ? `<a href="${CJ_PRODUCT_URL}${p.cjPid}" target="_blank" class="cj-link">View on CJ ↗</a>`
-          : '<span style="color:var(--muted);font-size:0.78rem;">No ID</span>'}
-      </td>
+     <td>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <span class="cj-id" title="${p.cjPid||p.aliUrl||'N/A'}">${p.cjPid||'AliExpress'}</span>
+    ${p.cjPid ? `<button class="copy-btn" onclick="copyId('${p.cjPid}',this)">Copy</button>` : ''}
+  </div>
+</td>
+<td>
+  ${p.cjPid
+    ? `<a href="${CJ_PRODUCT_URL}${p.cjPid}" target="_blank" class="cj-link">View on CJ ↗</a>`
+    : p.aliUrl
+    ? `<a href="${p.aliUrl}" target="_blank" class="cj-link">View on AliExpress ↗</a>`
+    : '<span style="color:var(--muted);font-size:0.78rem;">No link</span>'}
+</td>
     `;
     tbody.appendChild(tr);
   });
