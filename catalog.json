@@ -1,5 +1,5 @@
 {
-  "__runIndex": 34,
+  "__runIndex": 35,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -14222,6 +14222,38 @@
       "stock": 8,
       "cjPid": "2606130508541632900",
       "lastUpdated": "2026-06-20T03:06:27.670Z"
+    }
+  ],
+  "electric kettle": [
+    {
+      "id": "cj-2606170828041611800-1781935328412",
+      "name": "High Power Car Water Kettle",
+      "cat": "Home",
+      "icon": "☕",
+      "displayPrice": 22,
+      "rating": 4.5,
+      "reviews": 10913,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://oss-cf.cjdropshipping.com/product/2026/06/17/08/bea5877b-115f-43a3-9a03-7571ba7b205d_trans.jpeg",
+      "stock": 37,
+      "cjPid": "2606170828041611800",
+      "lastUpdated": "2026-06-20T06:02:08.413Z"
+    },
+    {
+      "id": "cj-2065370609816989698-1781935328415",
+      "name": "S925 Sterling Silver Kettle Dangle Charm Vintage Hollow Carved Pendant Bead For DIY Charm Bracelet Necklace Jewelry Gift",
+      "cat": "Home",
+      "icon": "☕",
+      "displayPrice": 30,
+      "rating": 4.5,
+      "reviews": 18152,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://shopify-images-sy.oss-cn-beijing.aliyuncs.com/20260609_v05/PD0093/PD0093.jpg",
+      "stock": 41,
+      "cjPid": "2065370609816989698",
+      "lastUpdated": "2026-06-20T06:02:08.415Z"
     }
   ]
 }
