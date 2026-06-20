@@ -161,11 +161,14 @@ exports.handler = async function(){
     // Filter: product name must contain at least one keyword from the search term
     // Excludes common stopwords to avoid false matches like "wireless bra" matching "wireless earbuds"
     const stopwords = ['and','for','the','with','set','kids','supplies','plus','size'];
-    const keywords = term.toLowerCase().split(' ').filter(w => !stopwords.includes(w) && w.length > 3);
-    const items = allItems.filter(item => {
-      const name = (item.productNameEn || item.productName || '').toLowerCase();
-      return keywords.some(kw => name.includes(kw));
-    });
+    // Use ONLY the last meaningful word as the filter — most specific part of the term
+const stopwords = ['and','for','the','with','set','kids','supplies','plus','size'];
+const meaningfulWords = term.toLowerCase().split(' ').filter(w => !stopwords.includes(w) && w.length > 3);
+const strictKeyword = meaningfulWords[meaningfulWords.length - 1]; // e.g. "earbuds" from "wireless earbuds"
+const items = allItems.filter(item => {
+  const name = (item.productNameEn || item.productName || '').toLowerCase();
+  return strictKeyword && name.includes(strictKeyword);
+});
 
     if(!items.length){
       await saveCatalogFile(catalog, sha);
