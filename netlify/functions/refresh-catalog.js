@@ -166,8 +166,8 @@ const items = allItems.filter(item => {
   const name = (item.productNameEn || item.productName || '').toLowerCase();
   // Must match AT LEAST 2 keywords, or the most specific one (last keyword)
   const matches = keywords.filter(kw => name.includes(kw));
-  return matches.length >= Math.min(2, keywords.length);
-});
+return matches.length >= 1;
+);
 
     if(!items.length){
       await saveCatalogFile(catalog, sha);
