@@ -1,79 +1,84 @@
-exports.handler = async function(event) {
-  console.log('Function invoked');
-  console.log('Method:', event.httpMethod);
+const GITHUB_OWNER = '999666333HIM';
+const GITHUB_REPO = '-wibilow-site';
+const ORDERS_FILE = 'orders.json';
 
-  if(event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
+async function githubRequest(path, options={}){
+  const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/${path}`,{
+    ...options,headers:{
+      Authorization:`Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept:'application/vnd.github+json',
+      'Content-Type':'application/json',
+      ...(options.headers||{})}});
+  return res;
+}
 
-  try {
+async function getOrdersFile(){
+  const res = await githubRequest(`contents/${ORDERS_FILE}`);
+  if(res.status===404) return {content:[],sha:null};
+  const data = await res.json();
+  return {content:JSON.parse(Buffer.from(data.content,'base64').toString('utf-8')),sha:data.sha};
+}
+
+async function saveOrdersFile(orders, sha){
+  const body={
+    message:'New order received',
+    content:Buffer.from(JSON.stringify(orders,null,2)).toString('base64')
+  };
+  if(sha) body.sha=sha;
+  return githubRequest(`contents/${ORDERS_FILE}`,{method:'PUT',body:JSON.stringify(body)});
+}
+
+exports.handler = async function(event){
+  if(event.httpMethod !== 'POST') return {statusCode:405,body:'Method Not Allowed'};
+  try{
     const Stripe = require('stripe');
     const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
     const payload = JSON.parse(event.body);
-
-    console.log('Event type:', payload.type);
-
-    if(payload.type !== 'checkout.session.completed') {
-      return { statusCode: 200, body: 'Not a checkout event' };
+    console.log('Function invoked, event type:', payload.type);
+    if(payload.type !== 'checkout.session.completed'){
+      return {statusCode:200,body:'Event received but not processed'};
     }
-
     const session = payload.data.object;
     const shipping = session.shipping_details || session.customer_details;
-    console.log('Shipping:', JSON.stringify(shipping));
-
-    const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-      expand: ['line_items'],
+    const fullSession = await stripe.checkout.sessions.retrieve(session.id,{
+      expand:['line_items'],
     });
     const lineItems = fullSession.line_items?.data || [];
-    console.log('Line items count:', lineItems.length);
-    console.log('Line items:', JSON.stringify(lineItems.map(i => ({
-      name: i.description,
-      cjPid: i.price?.product_data?.metadata?.cjPid || null
-    }))));
-
-    const CJ_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
-    const tokenRes = await fetch(`${CJ_BASE}/authentication/getAccessToken`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ apiKey: process.env.CJ_API_KEY }),
-    });
-    const tokenData = await tokenRes.json();
-    console.log('CJ token result:', tokenData.result);
-
-    if(tokenData.result && shipping) {
-      const products = lineItems
-        .map(i => ({ vid: i.price?.product_data?.metadata?.cjPid || '', quantity: 1 }))
-        .filter(i => i.vid);
-
-      console.log('CJ products to order:', JSON.stringify(products));
-
-      if(products.length) {
-        const orderRes = await fetch(`${CJ_BASE}/shopping/order/createOrderV2`, {
-          method: 'POST',
-          headers: { 'CJ-Access-Token': tokenData.data.accessToken, 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            orderNumber: `WB-${Date.now()}`,
-            shippingName: shipping.name || 'Customer',
-            shippingCountry: shipping.address?.country || 'US',
-            shippingState: shipping.address?.state || '',
-            shippingCity: shipping.address?.city || '',
-            shippingAddress: shipping.address?.line1 || '',
-            shippingAddress2: shipping.address?.line2 || '',
-            shippingZip: shipping.address?.postal_code || '',
-            shippingPhone: '0000000000',
-            products,
-          }),
-        });
-        const orderData = await orderRes.json();
-        console.log('CJ order result:', JSON.stringify(orderData));
-      } else {
-        console.log('No CJ product IDs found on line items');
-      }
-    }
-
-    return { statusCode: 200, body: 'OK' };
-  } catch(err) {
-    console.error('Error:', err.message, err.stack);
-    return { statusCode: 500, body: err.message };
+    const order = {
+      id:`WB-${Date.now()}`,
+      stripeSessionId:session.id,
+      status:'pending',
+      createdAt:new Date().toISOString(),
+      buyer:{
+        name:shipping?.name||'Unknown',
+        email:session.customer_details?.email||'',
+        address:{
+          line1:shipping?.address?.line1||'',
+          line2:shipping?.address?.line2||'',
+          city:shipping?.address?.city||'',
+          state:shipping?.address?.state||'',
+          zip:shipping?.address?.postal_code||'',
+          country:shipping?.address?.country||'US',
+        }
+      },
+      items:lineItems.map(i=>({
+        name:i.description||'Unknown product',
+        quantity:i.quantity||1,
+        price:(i.amount_total/100).toFixed(2),
+        cjPid:i.price?.product_data?.metadata?.cjPid||null,
+        aliUrl:i.price?.product_data?.metadata?.aliUrl||null,
+      })),
+      total:(session.amount_total/100).toFixed(2),
+      currency:session.currency||'usd',
+    };
+    const {content:orders, sha} = await getOrdersFile();
+    orders.unshift(order);
+    if(orders.length > 500) orders.length = 500;
+    await saveOrdersFile(orders, sha);
+    console.log('Order saved:', order.id);
+    return {statusCode:200,body:JSON.stringify({received:true,orderId:order.id})};
+  }catch(err){
+    console.error('Error:', err.message);
+    return {statusCode:500,body:JSON.stringify({error:err.message})};
   }
 };

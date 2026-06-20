@@ -9,8 +9,14 @@ exports.handler = async function(event){
     const line_items = cart.map(item=>({
       price_data:{
         currency:'usd',
-        product_data:{name:item.name,metadata:{cjPid:item.cjPid||''}},
-        unit_amount:Math.ceil(item.price*1.02)*100,
+        product_data:{
+          name:item.name,
+          metadata:{
+            cjPid:item.cjPid||'',
+            aliUrl:item.aliUrl||'',
+          }
+        },
+        unit_amount:Math.round((item.displayPrice||item.price)*100),
       },
       quantity:1,
     }));
@@ -20,8 +26,8 @@ exports.handler = async function(event){
       mode:'payment',
       line_items,
       shipping_address_collection:{allowed_countries:['US','CA','GB','AU']},
-automatic_tax:{ enabled:true },      
-success_url:`${siteUrl}/success.html`,
+      automatic_tax:{enabled:true},
+      success_url:`${siteUrl}/success.html`,
       cancel_url:`${siteUrl}/`,
     });
     return {statusCode:200,body:JSON.stringify({url:session.url})};
