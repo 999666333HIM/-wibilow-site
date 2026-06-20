@@ -304,14 +304,20 @@ function copyAddr(orderId,btn){
   const text=[order.buyer?.name,addr?.line1,addr?.line2,`${addr?.city}, ${addr?.state} ${addr?.zip}`,addr?.country,order.buyer?.email].filter(Boolean).join('\n');
   navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000);});
 }
+
 function markFulfilled(id){
+  if(!confirm('Mark this order as fulfilled? This means you have placed the order with the supplier.')) return;
   const f=JSON.parse(localStorage.getItem('wibilow_fulfilled')||'{}');
-  f[id]=Date.now();localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
+  f[id]=Date.now();
+  localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
   updateOrderStats();renderOrders();
 }
+
 function markPending(id){
+  if(!confirm('Move this back to pending? This will mark it as unfulfilled again.')) return;
   const f=JSON.parse(localStorage.getItem('wibilow_fulfilled')||'{}');
-  delete f[id];localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
+  delete f[id];
+  localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
   updateOrderStats();renderOrders();
 }
 
