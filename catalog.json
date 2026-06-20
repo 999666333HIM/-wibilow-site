@@ -1,5 +1,5 @@
 {
-  "__runIndex": 29,
+  "__runIndex": 30,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -12532,6 +12532,38 @@
       "stock": 32,
       "cjPid": "2605240726531623700",
       "lastUpdated": "2026-06-20T02:43:06.250Z"
+    }
+  ],
+  "kitchen knife": [
+    {
+      "id": "cj-2606160554501628300-1781923393479",
+      "name": "Rosewood-handled Stainless Steel Oyster Knife",
+      "cat": "Home",
+      "icon": "🔪",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 8339,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/6f4d2248-5d78-44e4-9345-4da98d03c7c2.jpg",
+      "stock": 42,
+      "cjPid": "2606160554501628300",
+      "lastUpdated": "2026-06-20T02:43:13.479Z"
+    },
+    {
+      "id": "cj-2606160337101619400-1781923393479",
+      "name": "Stainless Steel Oyster Knife Kitchen Tool",
+      "cat": "Home",
+      "icon": "🔪",
+      "displayPrice": 11,
+      "rating": 4.5,
+      "reviews": 3526,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://oss-cf.cjdropshipping.com/product/2026/06/16/03/c9b93025-a700-4343-9357-48df5302e983_water.jpeg",
+      "stock": 24,
+      "cjPid": "2606160337101619400",
+      "lastUpdated": "2026-06-20T02:43:13.480Z"
     }
   ]
 }
