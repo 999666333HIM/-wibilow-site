@@ -1,5 +1,5 @@
 {
-  "__runIndex": 40,
+  "__runIndex": 41,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -16544,6 +16544,53 @@
       "stock": 5,
       "cjPid": "2065612497341935617",
       "lastUpdated": "2026-06-20T09:39:19.144Z"
+    }
+  ],
+  "tote bag": [
+    {
+      "id": "cj-2606170233031605100-1781948381062",
+      "name": "Large-capacity Tote Crossbody Womens Bag",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 13084,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/662428c6-1eac-486c-9c87-ba6a520b3f4a.jpg",
+      "stock": 11,
+      "cjPid": "2606170233031605100",
+      "lastUpdated": "2026-06-20T09:39:41.062Z"
+    },
+    {
+      "id": "cj-2606130753071612900-1781948381062",
+      "name": "Women's Fashion All-match Shoulder Tote Bag",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 17,
+      "rating": 4.5,
+      "reviews": 1973,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/4a0ba0d6-6454-4496-ac91-6a3e3633426a.jpg",
+      "stock": 21,
+      "cjPid": "2606130753071612900",
+      "lastUpdated": "2026-06-20T09:39:41.062Z"
+    },
+    {
+      "id": "cj-2606130429561615700-1781948381062",
+      "name": "Sophisticated Soft Cowhide Tote Bag",
+      "cat": "Fashion",
+      "icon": "👜",
+      "displayPrice": 52,
+      "rating": 4.5,
+      "reviews": 6593,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://oss-cf.cjdropshipping.com/product/2026/06/13/04/3dcf27ae-3c09-435b-a1ed-1a4bd4f802dc_trans.jpeg",
+      "stock": 22,
+      "cjPid": "2606130429561615700",
+      "lastUpdated": "2026-06-20T09:39:41.062Z"
     }
   ]
 }
