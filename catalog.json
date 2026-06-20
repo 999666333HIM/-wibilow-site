@@ -1,5 +1,5 @@
 {
-  "__runIndex": 41,
+  "__runIndex": 42,
   "earbuds": [
     {
       "id": "cj-2057752258857852929-1781919490735",
@@ -16591,6 +16591,98 @@
       "stock": 22,
       "cjPid": "2606130429561615700",
       "lastUpdated": "2026-06-20T09:39:41.062Z"
+    }
+  ],
+  "winter scarf": [
+    {
+      "id": "cj-2067444123740372993-1781948450766",
+      "name": "Summer Boys And Girls Net Scarf Breathable Cute Bear Embroidered Multi-Purpose Children's Baseball Cap For Daily Outdoor Use",
+      "cat": "Fashion",
+      "icon": "🧣",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 13811,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/906167ba-21dd-43f0-bc3d-0d173ab30daa.jpg",
+      "stock": 23,
+      "cjPid": "2067444123740372993",
+      "lastUpdated": "2026-06-20T09:40:50.766Z"
+    },
+    {
+      "id": "cj-2606160535541637500-1781948450766",
+      "name": "British-style Mens And Womens Couple Tassel Scarf With Large Plaid Pattern",
+      "cat": "Fashion",
+      "icon": "🧣",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 1679,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/9483c82c-624f-43f3-ad7c-6abe9bf20864.jpg",
+      "stock": 16,
+      "cjPid": "2606160535541637500",
+      "lastUpdated": "2026-06-20T09:40:50.766Z"
+    },
+    {
+      "id": "cj-2606120643021633500-1781948450766",
+      "name": "Happy Birthday Background Party Hat And Scarf For Cats And Dogs",
+      "cat": "Fashion",
+      "icon": "🧣",
+      "displayPrice": 11,
+      "rating": 4.5,
+      "reviews": 19304,
+      "hot": true,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/f18bf91b-df84-43d2-ac95-6ace177e1c59.jpg",
+      "stock": 36,
+      "cjPid": "2606120643021633500",
+      "lastUpdated": "2026-06-20T09:40:50.766Z"
+    },
+    {
+      "id": "cj-2606081204051615400-1781948450766",
+      "name": "Korean-style Cotton-linen Plaid Childrens Scarf Versatile And Easy To Match",
+      "cat": "Fashion",
+      "icon": "🧣",
+      "displayPrice": 11,
+      "rating": 4.5,
+      "reviews": 8078,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/85c28ff8-218c-42f7-b1f9-ff4af3e31d6c.jpg",
+      "stock": 9,
+      "cjPid": "2606081204051615400",
+      "lastUpdated": "2026-06-20T09:40:50.766Z"
+    },
+    {
+      "id": "cj-2606081113291610300-1781948450766",
+      "name": "Cute Lace-trimmed Scarf With A Bow Decoration",
+      "cat": "Fashion",
+      "icon": "🧣",
+      "displayPrice": 16,
+      "rating": 4.5,
+      "reviews": 10780,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://oss-cf.cjdropshipping.com/product/2026/06/08/11/f31fea45-bf71-45d9-9473-8c8c529f25dd.jpg",
+      "stock": 18,
+      "cjPid": "2606081113291610300",
+      "lastUpdated": "2026-06-20T09:40:50.766Z"
+    },
+    {
+      "id": "cj-2606050514571600400-1781948450766",
+      "name": "Christmas Knitted Scarf And Hat For Dogs And Cats",
+      "cat": "Fashion",
+      "icon": "🧣",
+      "displayPrice": 12,
+      "rating": 4.5,
+      "reviews": 14533,
+      "hot": false,
+      "desc": "Shipped direct to your door.",
+      "thumbnail": "https://cf.cjdropshipping.com/quick/product/066dfac7-bff2-4036-9971-e4cc5d02097b.jpg",
+      "stock": 34,
+      "cjPid": "2606050514571600400",
+      "lastUpdated": "2026-06-20T09:40:50.766Z"
     }
   ]
 }
