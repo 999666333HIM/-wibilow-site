@@ -4,27 +4,154 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Order Confirmed — Wibilow</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
-  body{
-    margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:#FAFAF8;font-family:'Nunito',sans-serif;color:#2D1B4E;text-align:center;
-  }
-  .card{max-width:420px;padding:48px 36px;background:#fff;border-radius:24px;
-    border:1.5px solid #E8E3F0;box-shadow:0 2px 16px rgba(45,27,78,0.08);}
-  .icon{font-size:3rem;margin-bottom:16px;}
-  h1{font-family:'DM Serif Display',serif;font-size:1.8rem;margin:0 0 12px;}
-  p{color:#6B6280;font-size:0.95rem;line-height:1.6;margin:0 0 24px;}
-  a{display:inline-block;background:#FF6B47;color:#fff;text-decoration:none;
-    padding:13px 28px;border-radius:999px;font-weight:800;font-size:0.92rem;}
+:root{
+  --bg:#0D1117;--surface:#161B22;--surface2:#1C2128;--border:#30363D;
+  --blue:#58A6FF;--cyan:#3DFFD0;--white:#F0F6FF;--muted:#8B949E;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:24px;}
+.receipt{background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  width:100%;max-width:520px;overflow:hidden;}
+.receipt-header{background:linear-gradient(135deg,#0D1B2A,#0D1117);
+  padding:36px 32px;text-align:center;border-bottom:1px solid var(--border);}
+.check{width:56px;height:56px;background:rgba(61,255,208,0.1);border:2px solid rgba(61,255,208,0.4);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;margin:0 auto 16px;}
+.receipt-header h1{font-size:1.4rem;font-weight:700;margin-bottom:6px;}
+.receipt-header p{color:var(--muted);font-size:0.9rem;}
+.receipt-body{padding:28px 32px;}
+.receipt-section{margin-bottom:24px;}
+.receipt-section:last-child{margin-bottom:0;}
+.section-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;}
+.order-id-box{background:var(--surface2);border-radius:8px;padding:12px 16px;
+  font-family:'JetBrains Mono',monospace;font-size:0.88rem;color:var(--cyan);}
+.item-row{display:flex;justify-content:space-between;align-items:flex-start;
+  gap:12px;padding:10px 0;border-bottom:1px solid rgba(48,54,61,0.5);}
+.item-row:last-child{border-bottom:none;}
+.item-name{font-size:0.88rem;font-weight:600;color:var(--white);flex:1;line-height:1.4;}
+.item-price{font-family:'JetBrains Mono',monospace;font-size:0.88rem;color:var(--cyan);flex-shrink:0;}
+.totals-row{display:flex;justify-content:space-between;font-size:0.86rem;
+  color:var(--muted);padding:6px 0;}
+.totals-row.total{color:var(--white);font-weight:700;font-size:0.95rem;
+  padding-top:10px;border-top:1px solid var(--border);margin-top:4px;}
+.totals-row span:last-child{font-family:'JetBrains Mono',monospace;}
+.address-block{background:var(--surface2);border-radius:8px;padding:14px 16px;
+  font-size:0.88rem;line-height:1.8;color:var(--white);}
+.email-block{background:var(--surface2);border-radius:8px;padding:12px 16px;
+  font-size:0.88rem;color:var(--muted);}
+.back-btn{display:inline-flex;align-items:center;gap:6px;margin-top:24px;
+  background:var(--blue);color:#fff;padding:12px 28px;border-radius:8px;
+  font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:600;
+  text-decoration:none;transition:background 0.2s;}
+.back-btn:hover{background:#388BFD;}
+.loading-state{text-align:center;padding:60px 32px;color:var(--muted);}
+.spinner{display:inline-block;width:32px;height:32px;border:3px solid rgba(88,166,255,0.2);
+  border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-state{text-align:center;padding:40px 32px;color:var(--muted);}
 </style>
 </head>
 <body>
-  <div class="card">
-    <div class="icon">🎉</div>
-    <h1>Order confirmed!</h1>
-    <p>Thanks for shopping with Wibilow. A confirmation email is on its way, and your order will ship soon.</p>
-    <a href="/">Back to store</a>
+
+<div class="receipt" id="receipt">
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading your receipt…</p>
   </div>
+</div>
+
+<a href="https://wibilow.com" class="back-btn">← Back to Wibilow</a>
+
+<script>
+async function loadReceipt(){
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+
+  if(!sessionId){
+    showFallback();
+    return;
+  }
+
+  try{
+    const res = await fetch(`/api/get-receipt?session_id=${sessionId}`);
+    if(!res.ok) throw new Error('Failed to load');
+    const data = await res.json();
+    renderReceipt(data);
+  }catch(e){
+    showFallback();
+  }
+}
+
+function renderReceipt(d){
+  const receipt = document.getElementById('receipt');
+  const addr = d.shipping?.address;
+  const addrLines = [
+    d.shipping?.name,
+    addr?.line1,
+    addr?.line2,
+    `${addr?.city}, ${addr?.state} ${addr?.postal_code}`,
+    addr?.country
+  ].filter(Boolean);
+
+  const itemsHtml = d.items.map(item=>`
+    <div class="item-row">
+      <div class="item-name">${item.name} ${item.quantity>1?`× ${item.quantity}`:''}</div>
+      <div class="item-price">$${item.total}</div>
+    </div>`).join('');
+
+  receipt.innerHTML = `
+    <div class="receipt-header">
+      <div class="check">✓</div>
+      <h1>Order Confirmed!</h1>
+      <p>Thanks for shopping with Wibilow. Your order is on its way.</p>
+    </div>
+    <div class="receipt-body">
+      <div class="receipt-section">
+        <div class="section-label">Order ID</div>
+        <div class="order-id-box">${d.orderId}</div>
+      </div>
+      <div class="receipt-section">
+        <div class="section-label">Items</div>
+        ${itemsHtml}
+        <div style="margin-top:12px;">
+          ${d.subtotal!==d.total?`<div class="totals-row"><span>Subtotal</span><span>$${d.subtotal}</span></div>`:''}
+          ${d.tax?`<div class="totals-row"><span>Tax</span><span>$${d.tax}</span></div>`:''}
+          <div class="totals-row total"><span>Total charged</span><span>$${d.total}</span></div>
+        </div>
+      </div>
+      <div class="receipt-section">
+        <div class="section-label">Shipping to</div>
+        <div class="address-block">${addrLines.join('<br>')}</div>
+      </div>
+      ${d.email?`
+      <div class="receipt-section">
+        <div class="section-label">Confirmation sent to</div>
+        <div class="email-block">${d.email}</div>
+      </div>`:''}
+    </div>`;
+}
+
+function showFallback(){
+  document.getElementById('receipt').innerHTML = `
+    <div class="receipt-header">
+      <div class="check">✓</div>
+      <h1>Order Confirmed!</h1>
+      <p>Thanks for shopping with Wibilow. A confirmation email is on its way.</p>
+    </div>
+    <div class="receipt-body">
+      <div class="error-state">
+        <p>Your order was placed successfully.<br>Check your email for full details.</p>
+      </div>
+    </div>`;
+}
+
+loadReceipt();
+</script>
 </body>
 </html>

@@ -27,7 +27,7 @@ exports.handler = async function(event){
       line_items,
       shipping_address_collection:{allowed_countries:['US','CA','GB','AU']},
       automatic_tax:{enabled:process.env.STRIPE_SECRET_KEY?.startsWith('sk_live_')},
-      success_url:`${siteUrl}/success.html`,
+      success_url:`${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url:`${siteUrl}/`,
     });
     return {statusCode:200,body:JSON.stringify({url:session.url})};
