@@ -114,7 +114,7 @@ async function searchAliExpress(term){
     try{
       const res = await fetch(url, {headers});
       const data = await res.json();
-      console.log('Tried:', url, 'Response:', JSON.stringify(data));
+      console.log('Tried:', url, 'Response:', JSON.stringify(data).slice(0,500));
       const list = data?.result?.resultList || data?.resultList || data?.data?.result?.resultList || [];
       if(list.length) return list;
     }catch(e){
