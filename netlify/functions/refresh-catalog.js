@@ -113,8 +113,9 @@ for(const query of variants){
       try{
         const res = await fetch(url, {headers});
         const data = await res.json();
-        const list = data?.result?.resultList || [];
-        if(!list.length) break;
+       const list = data?.result?.resultList || [];
+console.log('Query:', query, 'Page:', page, 'Results:', list.length, 'API msg:', data?.result?.status?.message||'ok');
+if(!list.length) break;
         allResults = [...allResults, ...list];
       }catch(e){
         console.log('Page error:', page, e.message);
