@@ -196,7 +196,7 @@ exports.handler = async function(){
         summary[term] = 0;
         continue;
       }
-      catalog[term] = results.slice(0,200).map((entry,i)=>{
+      catalog[term] = results.slice(0,40).map((entry,i)=>{
         const item = entry.item || entry;
         return processItem(item, term, i);
       }).filter(Boolean);

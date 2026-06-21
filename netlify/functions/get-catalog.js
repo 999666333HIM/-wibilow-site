@@ -62,10 +62,12 @@ cost: item.cost||null,
     });
   });
 }
+// Limit total products returned to avoid response size issues
+const limited = allProducts.slice(0, 500);
     return {
       statusCode: 200,
       headers: { 'Cache-Control': 'no-cache' },
-      body: JSON.stringify({ products: allProducts }),
+      body: JSON.stringify({ products: limited }),
     };
   } catch (err) {
     console.error(err);
