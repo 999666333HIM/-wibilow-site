@@ -104,21 +104,11 @@ async function searchAliExpress(term){
     'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
     'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
   };
-const variants = [term];
-let allResults = [];
-for(const query of variants){
-  if(allResults.length >= 20) break;
-  for(let page = 1; page <= 2; page++){
-      async function searchAliExpress(term){
-  const headers = {
-    'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
-    'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
-  };
   const endpoints = ['item_search_2','item_search_3','item_search_4','item_search_5'];
   let allResults = [];
   for(const endpoint of endpoints){
     if(allResults.length >= 20) break;
-    const url = `https://aliexpress-datahub.p.rapidapi.com/${endpoint}?q=${encodeURIComponent(term)}&page=1&sort=salesDesc`;
+    const url = 'https://aliexpress-datahub.p.rapidapi.com/' + endpoint + '?q=' + encodeURIComponent(term) + '&page=1&sort=salesDesc';
     try{
       const res = await fetch(url, {headers});
       const data = await res.json();
@@ -130,27 +120,12 @@ for(const query of variants){
     }
   }
   return allResults;
-}`;
-      try{
-        const res = await fetch(url, {headers});
-        const data = await res.json();
-       const list = data?.result?.resultList || [];
-console.log('Query:', query, 'Page:', page, 'Results:', list.length, 'API msg:', data?.result?.status?.message||'ok');
-if(!list.length) break;
-        allResults = [...allResults, ...list];
-      }catch(e){
-        console.log('Page error:', page, e.message);
-        break;
-      }
-    }
-    if(allResults.length) break;
-  }
-  return allResults;
 }
+
 async function githubRequest(path, options={}){
-  const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/${path}`,{
+  const res = await fetch('https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/' + path,{
     ...options,headers:{
-      Authorization:`Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization:'Bearer ' + process.env.GITHUB_TOKEN,
       Accept:'application/vnd.github+json',
       'Content-Type':'application/json',
       ...(options.headers||{})}});
@@ -158,7 +133,7 @@ async function githubRequest(path, options={}){
 }
 
 async function getCurrentCatalogFile(){
-  const res = await githubRequest(`contents/${GITHUB_FILE_PATH}`);
+  const res = await githubRequest('contents/' + GITHUB_FILE_PATH);
   if(res.status===404) return {content:{},sha:null};
   const data = await res.json();
   return {content:JSON.parse(Buffer.from(data.content,'base64').toString('utf-8')),sha:data.sha};
@@ -170,7 +145,7 @@ async function saveCatalogFile(newContent, sha){
     content:Buffer.from(JSON.stringify(newContent,null,2)).toString('base64')
   };
   if(sha) body.sha=sha;
-  return githubRequest(`contents/${GITHUB_FILE_PATH}`,{method:'PUT',body:JSON.stringify(body)});
+  return githubRequest('contents/' + GITHUB_FILE_PATH,{method:'PUT',body:JSON.stringify(body)});
 }
 
 exports.handler = async function(){
@@ -183,10 +158,10 @@ exports.handler = async function(){
     const term = SEARCH_TERMS[runIndex % SEARCH_TERMS.length];
     catalog.__runIndex = (runIndex + 1) % SEARCH_TERMS.length;
 
-   const results = await searchAliExpress(term);
-console.log('Search term:', term, 'Raw results count:', results.length);
+    const results = await searchAliExpress(term);
+    console.log('Search term:', term, 'Total results:', results.length);
 
-if(!results.length){
+    if(!results.length){
       await saveCatalogFile(catalog, sha);
       return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No results'})};
     }
@@ -197,7 +172,7 @@ if(!results.length){
       const displayPrice = markupPrice(rawPrice);
       if(displayPrice < 8 || rawPrice === 0) return null;
       return {
-        id:`ae-${item.itemId||i}-${Date.now()}`,
+        id:'ae-' + (item.itemId||i) + '-' + Date.now(),
         name:item.title||term,
         cat:pickCat(term),
         icon:pickEmoji(term),
@@ -216,7 +191,7 @@ if(!results.length){
     const saveRes = await saveCatalogFile(catalog, sha);
     if(!saveRes.ok){
       const e = await saveRes.text();
-      throw new Error(`GitHub save failed: ${e}`);
+      throw new Error('GitHub save failed: ' + e);
     }
 
     return {statusCode:200,body:JSON.stringify({updated:term,count:catalog[term].length})};
