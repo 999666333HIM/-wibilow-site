@@ -109,7 +109,28 @@ let allResults = [];
 for(const query of variants){
   if(allResults.length >= 20) break;
   for(let page = 1; page <= 2; page++){
-      const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(query)}&page=${page}&sort=salesDesc`;
+      async function searchAliExpress(term){
+  const headers = {
+    'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+    'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
+  };
+  const endpoints = ['item_search_2','item_search_3','item_search_4','item_search_5'];
+  let allResults = [];
+  for(const endpoint of endpoints){
+    if(allResults.length >= 20) break;
+    const url = `https://aliexpress-datahub.p.rapidapi.com/${endpoint}?q=${encodeURIComponent(term)}&page=1&sort=salesDesc`;
+    try{
+      const res = await fetch(url, {headers});
+      const data = await res.json();
+      const list = data?.result?.resultList || data?.resultList || [];
+      console.log('Endpoint:', endpoint, 'Results:', list.length);
+      if(list.length) allResults = [...allResults, ...list];
+    }catch(e){
+      console.log('Endpoint failed:', endpoint, e.message);
+    }
+  }
+  return allResults;
+}`;
       try{
         const res = await fetch(url, {headers});
         const data = await res.json();
