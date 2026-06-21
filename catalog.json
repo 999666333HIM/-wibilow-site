@@ -21,19 +21,19 @@
     {
       "id": "manual-1782046125635",
       "name": "Sony Playstation 5 Slim Console",
-      "cat": "General",
+      "cat": "Electronics",
       "icon": "🛍️",
-      "displayPrice": 689.99,
+      "displayPrice": 662.99,
       "rating": 4.9,
-      "reviews": 2882,
+      "reviews": 4972,
       "hot": false,
       "desc": "Sony Interactive Entertainment\nPlayStation 5 Slim Console – 1TB",
       "thumbnail": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/e44a0a67-7842-4cd6-8b23-16217d0d2fb9.png;maxHeight=1920;maxWidth=900?format=webp",
       "stock": 5,
       "aliUrl": "https://www.bestbuy.com/product/playstation-5-slim-console-1tb/JXHQ37TYLC/sku/6646419",
-      "cost": 700,
+      "cost": null,
       "manual": true,
-      "lastUpdated": "2026-06-21T13:16:29.920Z"
+      "lastUpdated": "2026-06-21T16:07:59.689Z"
     }
   ]
 }
