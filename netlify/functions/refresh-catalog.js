@@ -20,6 +20,7 @@ const SEARCH_TERMS = [
   'garden gloves','plant pot','watering can','grow light','pruning shears',
 ];
 
+const BATCH_SIZE = 5;
 const GITHUB_OWNER = '999666333HIM';
 const GITHUB_REPO = '-wibilow-site';
 const GITHUB_FILE_PATH = 'catalog.json';
@@ -104,19 +105,18 @@ async function searchAliExpress(term){
     'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
     'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
   };
-  const endpoints = ['item_search_2','item_search_3','item_search_4','item_search_5'];
   let allResults = [];
-  for(const endpoint of endpoints){
-    if(allResults.length >= 20) break;
-    const url = 'https://aliexpress-datahub.p.rapidapi.com/' + endpoint + '?q=' + encodeURIComponent(term) + '&page=1&sort=salesDesc';
+  for(let page = 1; page <= 2; page++){
+    const url = 'https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=' + encodeURIComponent(term) + '&page=' + page + '&sort=salesDesc';
     try{
       const res = await fetch(url, {headers});
       const data = await res.json();
-      const list = data?.result?.resultList || data?.resultList || [];
-      console.log('Endpoint:', endpoint, 'Results:', list.length);
-      if(list.length) allResults = [...allResults, ...list];
+      const list = data?.result?.resultList || [];
+      if(!list.length) break;
+      allResults = [...allResults, ...list];
     }catch(e){
-      console.log('Endpoint failed:', endpoint, e.message);
+      console.log('Page error:', page, e.message);
+      break;
     }
   }
   return allResults;
@@ -148,6 +148,27 @@ async function saveCatalogFile(newContent, sha){
   return githubRequest('contents/' + GITHUB_FILE_PATH,{method:'PUT',body:JSON.stringify(body)});
 }
 
+function processItem(item, term, i){
+  const rawPrice = parseFloat(item.sku?.def?.promotionPrice || item.promotionPrice || item.price || 0);
+  const displayPrice = markupPrice(rawPrice);
+  if(displayPrice < 8 || rawPrice === 0) return null;
+  return {
+    id:'ae-' + (item.itemId||i) + '-' + Date.now(),
+    name:item.title||term,
+    cat:pickCat(term),
+    icon:pickEmoji(term),
+    displayPrice,
+    rating:parseFloat(item.averageStarRate||4.5),
+    reviews:parseInt(item.sales||Math.floor(Math.random()*10000)+100),
+    hot:i<3,
+    desc:'Shipped direct to your door.',
+    thumbnail:item.image?(item.image.startsWith('http')?item.image:'https:'+item.image):null,
+    stock:Math.floor(Math.random()*40)+5,
+    aliUrl:item.itemUrl?(item.itemUrl.startsWith('http')?item.itemUrl:'https:'+item.itemUrl):null,
+    lastUpdated:new Date().toISOString(),
+  };
+}
+
 exports.handler = async function(){
   try{
     if(!process.env.RAPIDAPI_KEY) return {statusCode:500,body:'Missing RAPIDAPI_KEY'};
@@ -155,38 +176,28 @@ exports.handler = async function(){
 
     const {content:catalog, sha} = await getCurrentCatalogFile();
     let runIndex = catalog.__runIndex || 0;
-    const term = SEARCH_TERMS[runIndex % SEARCH_TERMS.length];
-    catalog.__runIndex = (runIndex + 1) % SEARCH_TERMS.length;
 
-    const results = await searchAliExpress(term);
-    console.log('Search term:', term, 'Total results:', results.length);
-
-    if(!results.length){
-      await saveCatalogFile(catalog, sha);
-      return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No results'})};
+    // Process BATCH_SIZE terms per call
+    const terms = [];
+    for(let i = 0; i < BATCH_SIZE; i++){
+      terms.push(SEARCH_TERMS[(runIndex + i) % SEARCH_TERMS.length]);
     }
+    catalog.__runIndex = (runIndex + BATCH_SIZE) % SEARCH_TERMS.length;
 
-    catalog[term] = results.slice(0,200).map((entry,i)=>{
-      const item = entry.item || entry;
-      const rawPrice = parseFloat(item.sku?.def?.promotionPrice || item.promotionPrice || item.price || 0);
-      const displayPrice = markupPrice(rawPrice);
-      if(displayPrice < 8 || rawPrice === 0) return null;
-      return {
-        id:'ae-' + (item.itemId||i) + '-' + Date.now(),
-        name:item.title||term,
-        cat:pickCat(term),
-        icon:pickEmoji(term),
-        displayPrice,
-        rating:parseFloat(item.averageStarRate||4.5),
-        reviews:parseInt(item.sales||Math.floor(Math.random()*10000)+100),
-        hot:i<3,
-        desc:'Shipped direct to your door.',
-        thumbnail:item.image?(item.image.startsWith('http')?item.image:'https:'+item.image):null,
-        stock:Math.floor(Math.random()*40)+5,
-        aliUrl:item.itemUrl?(item.itemUrl.startsWith('http')?item.itemUrl:'https:'+item.itemUrl):null,
-        lastUpdated:new Date().toISOString(),
-      };
-    }).filter(Boolean);
+    const summary = {};
+    for(const term of terms){
+      const results = await searchAliExpress(term);
+      console.log('Term:', term, 'Results:', results.length);
+      if(!results.length){
+        summary[term] = 0;
+        continue;
+      }
+      catalog[term] = results.slice(0,200).map((entry,i)=>{
+        const item = entry.item || entry;
+        return processItem(item, term, i);
+      }).filter(Boolean);
+      summary[term] = catalog[term].length;
+    }
 
     const saveRes = await saveCatalogFile(catalog, sha);
     if(!saveRes.ok){
@@ -194,7 +205,7 @@ exports.handler = async function(){
       throw new Error('GitHub save failed: ' + e);
     }
 
-    return {statusCode:200,body:JSON.stringify({updated:term,count:catalog[term].length})};
+    return {statusCode:200,body:JSON.stringify({batch:terms,summary})};
   }catch(err){
     console.error(err);
     return {statusCode:500,body:JSON.stringify({error:err.message})};
