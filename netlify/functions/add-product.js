@@ -29,7 +29,7 @@ async function saveCatalog(content, sha){
 }
 
 exports.handler = async function(event){
-  if(!['POST','DELETE'].includes(event.httpMethod))
+  if(!['POST', 'PUT' , 'DELETE'].includes(event.httpMethod))
     return {statusCode:405,body:'Method Not Allowed'};
   try{
     const body = JSON.parse(event.body);
@@ -41,7 +41,12 @@ exports.handler = async function(event){
       await saveCatalog(catalog, sha);
       return {statusCode:200,body:JSON.stringify({ok:true})};
     }
-
+if(event.httpMethod==='PUT'){
+  const idx = catalog.__manual.findIndex(p=>p.id===body.product.id);
+  if(idx>=0) catalog.__manual[idx]=body.product;
+  await saveCatalog(catalog, sha);
+  return {statusCode:200,body:JSON.stringify({ok:true})};
+}
     if(event.httpMethod==='DELETE'){
       catalog.__manual = catalog.__manual.filter(p=>p.id!==body.productId);
       await saveCatalog(catalog, sha);

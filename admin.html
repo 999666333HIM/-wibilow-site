@@ -140,6 +140,8 @@ textarea.form-input{resize:vertical;min-height:80px;}
   .order-body{grid-template-columns:1fr;}
   .add-product-grid{grid-template-columns:1fr;}
 }
+.mp-edit{background:transparent;border:1px solid var(--border);color:var(--blue);border-radius:6px;padding:6px 12px;font-size:0.78rem;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
+.mp-edit:hover{border-color:var(--blue);background:rgba(88,166,255,0.1);}
 </style>
 </head>
 <body>
@@ -379,8 +381,9 @@ async function addProduct(){
 
   btn.textContent='Adding…';btn.disabled=true;
 
-  const product={
-    id:'manual-'+Date.now(),
+ const isEditing = editingIndex >= 0;
+const product={
+  id: isEditing ? manualProducts[editingIndex].id : 'manual-'+Date.now(),
     name,
     cat,
     icon:'🛍️',
@@ -399,8 +402,8 @@ async function addProduct(){
 
   try{
     // Save to catalog.json via add-product function
-    const res = await fetch('/api/add-product',{
-      method:'POST',
+ const res = await fetch('/api/add-product',{
+  method: isEditing ? 'PUT' : 'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({product}),
     });
@@ -408,7 +411,13 @@ async function addProduct(){
     if(!res.ok) throw new Error(data.error||'Failed to add product');
 
     // Save locally too
-    manualProducts.unshift(product);
+    if(isEditing){
+  manualProducts[editingIndex] = product;
+  editingIndex = -1;
+  document.getElementById('addProductBtn').textContent = 'Add to Store →';
+} else {
+  manualProducts.unshift(product);
+}
     localStorage.setItem('wb_manual_products', JSON.stringify(manualProducts));
     renderManualProducts();
 
@@ -432,7 +441,26 @@ async function addProduct(){
 
   btn.textContent='Add to Store →';btn.disabled=false;
 }
+let editingIndex = -1;
 
+function editProduct(index){
+  const p = manualProducts[index];
+  editingIndex = index;
+  document.getElementById('pName').value = p.name;
+  document.getElementById('pPrice').value = p.displayPrice;
+  document.getElementById('pCat').value = p.cat;
+  document.getElementById('pImage').value = p.thumbnail||'';
+  document.getElementById('pSourceUrl').value = p.aliUrl||'';
+  document.getElementById('pDesc').value = p.desc||'';
+  document.getElementById('pStock').value = p.stock||50;
+  document.getElementById('pRating').value = p.rating||4.5;
+  document.getElementById('pCost').value = p.cost||'';
+  document.getElementById('addProductBtn').textContent = 'Save Changes →';
+  updatePreview();
+  // Scroll to form
+  document.getElementById('pName').scrollIntoView({behavior:'smooth'});
+  document.getElementById('pName').focus();
+}
 function loadManualProducts(){
   manualProducts=JSON.parse(localStorage.getItem('wb_manual_products')||'[]');
   renderManualProducts();
@@ -448,16 +476,16 @@ function renderManualProducts(){
     <div class="manual-product-row">
       ${p.thumbnail
         ?'<img src="'+p.thumbnail+'" class="mp-thumb" alt="">'
-        :'<div class="mp-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;">'+p.icon+'</div>'}
+        :'<div class="mp-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;">'+(p.icon||'🛍️')+'</div>'}
       <div class="mp-info">
         <div class="mp-name">${p.name}</div>
         <div class="mp-meta">${p.cat} · Stock: ${p.stock} · ${p.aliUrl?'<a href="'+p.aliUrl+'" target="_blank" style="color:var(--blue);">Source ↗</a>':'No source link'}</div>
       </div>
       <div class="mp-price">$${p.displayPrice}</div>
+      <button class="mp-edit" onclick="editProduct(${i})">Edit</button>
       <button class="mp-delete" onclick="deleteManualProduct(${i})">Remove</button>
     </div>`).join('');
 }
-
 async function deleteManualProduct(index){
   if(!confirm('Remove this product from your store?')) return;
   const product = manualProducts[index];
