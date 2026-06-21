@@ -161,9 +161,10 @@ exports.handler = async function(){
     const term = SEARCH_TERMS[runIndex % SEARCH_TERMS.length];
     catalog.__runIndex = (runIndex + 1) % SEARCH_TERMS.length;
 
-    const results = await searchAliExpress(term);
+   const results = await searchAliExpress(term);
+console.log('Search term:', term, 'Raw results count:', results.length);
 
-    if(!results.length){
+if(!results.length){
       await saveCatalogFile(catalog, sha);
       return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No results'})};
     }
