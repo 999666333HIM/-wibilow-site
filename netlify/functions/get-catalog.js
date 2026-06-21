@@ -61,27 +61,6 @@ if(catalog.__manual && Array.isArray(catalog.__manual)){
     });
   });
 }
-// Include manual products
-if(catalog.__manual && Array.isArray(catalog.__manual)){
-  catalog.__manual.forEach(item=>{
-    allProducts.push({
-      id:item.id,
-      name:item.name,
-      cat:item.cat,
-      icon:item.icon||'🛍️',
-      price:item.displayPrice,
-      rating:item.rating||4.5,
-      reviews:item.reviews||100,
-      hot:item.hot||false,
-      desc:item.desc,
-      thumbnail:item.thumbnail||null,
-      stock:item.stock||50,
-      cjPid:null,
-      aliUrl:item.aliUrl||null,
-      manual:true,
-    });
-  });
-}
     return {
       statusCode: 200,
       headers: { 'Cache-Control': 'public, max-age=300' },
