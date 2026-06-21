@@ -6,17 +6,17 @@
       "name": "Xbox Series X 1TB Console",
       "cat": "Electronics",
       "icon": "🛍️",
-      "displayPrice": 689.99,
+      "displayPrice": 662.99,
       "rating": 4.9,
-      "reviews": 4191,
+      "reviews": 2048,
       "hot": false,
       "desc": "Xbox Series X 1TB Console with Xbox Wireless Controller - 4K Gaming - 120FPS",
       "thumbnail": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/610788c6-f422-4e44-89d4-b0dd5563604e.jpg;maxHeight=1920;maxWidth=900?format=webp",
       "stock": 5,
       "aliUrl": "https://www.bestbuy.com/product/xbox-series-x-1tb-console-with-xbox-wireless-controller-4k-gaming-120fps/J3ZKK5X72V",
-      "cost": 689.99,
+      "cost": null,
       "manual": true,
-      "lastUpdated": "2026-06-21T13:57:31.657Z"
+      "lastUpdated": "2026-06-21T16:07:32.836Z"
     },
     {
       "id": "manual-1782046125635",
