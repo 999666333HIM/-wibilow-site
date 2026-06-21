@@ -20,7 +20,7 @@ const SEARCH_TERMS = [
   'garden gloves','plant pot','watering can','grow light','pruning shears',
 ];
 
-const BATCH_SIZE = 5;
+const BATCH_SIZE = 3;
 const GITHUB_OWNER = '999666333HIM';
 const GITHUB_REPO = '-wibilow-site';
 const GITHUB_FILE_PATH = 'catalog.json';
@@ -136,9 +136,13 @@ async function getCurrentCatalogFile(){
   const res = await githubRequest('contents/' + GITHUB_FILE_PATH);
   if(res.status===404) return {content:{},sha:null};
   const data = await res.json();
-  return {content:JSON.parse(Buffer.from(data.content,'base64').toString('utf-8')),sha:data.sha};
+  try{
+    return {content:JSON.parse(Buffer.from(data.content,'base64').toString('utf-8')),sha:data.sha};
+  }catch(e){
+    console.log('Catalog corrupted, resetting...');
+    return {content:{},sha:data.sha};
+  }
 }
-
 async function saveCatalogFile(newContent, sha){
   const body={
     message:'Update product catalog via AliExpress',
