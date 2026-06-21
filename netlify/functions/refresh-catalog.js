@@ -104,11 +104,11 @@ async function searchAliExpress(term){
     'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
     'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
   };
-  const variants = [term, term + 's'];
-  let allResults = [];
-  for(const query of variants){
-    if(allResults.length >= 20) break;
-    for(let page = 1; page <= 4; page++){
+const variants = [term];
+let allResults = [];
+for(const query of variants){
+  if(allResults.length >= 20) break;
+  for(let page = 1; page <= 2; page++){
       const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(query)}&page=${page}&sort=salesDesc`;
       try{
         const res = await fetch(url, {headers});
