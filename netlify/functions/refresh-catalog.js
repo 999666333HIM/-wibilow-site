@@ -163,7 +163,7 @@ exports.handler = async function(){
       return {statusCode:200,body:JSON.stringify({updated:term,count:0,note:'No results'})};
     }
 
-    catalog[term] = results.slice(0,30).map((entry,i)=>{
+    catalog[term] = results.slice(0,200).map((entry,i)=>{
       const item = entry.item || entry;
       const rawPrice = parseFloat(item.sku?.def?.promotionPrice || item.promotionPrice || item.price || 0);
       const displayPrice = markupPrice(rawPrice);
