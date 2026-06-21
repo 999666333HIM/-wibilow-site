@@ -104,19 +104,24 @@ async function searchAliExpress(term){
     'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
     'X-RapidAPI-Host': 'aliexpress-datahub.p.rapidapi.com',
   };
+  const variants = [term, term + 's'];
   let allResults = [];
-  for(let page = 1; page <= 4; page++){
-    const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(term)}&page=${page}&sort=salesDesc`;
-    try{
-      const res = await fetch(url, {headers});
-      const data = await res.json();
-      const list = data?.result?.resultList || [];
-      if(!list.length) break;
-      allResults = [...allResults, ...list];
-    }catch(e){
-      console.log('Page error:', page, e.message);
-      break;
+  for(const query of variants){
+    if(allResults.length >= 20) break;
+    for(let page = 1; page <= 4; page++){
+      const url = `https://aliexpress-datahub.p.rapidapi.com/item_search_2?q=${encodeURIComponent(query)}&page=${page}&sort=salesDesc`;
+      try{
+        const res = await fetch(url, {headers});
+        const data = await res.json();
+        const list = data?.result?.resultList || [];
+        if(!list.length) break;
+        allResults = [...allResults, ...list];
+      }catch(e){
+        console.log('Page error:', page, e.message);
+        break;
+      }
     }
+    if(allResults.length) break;
   }
   return allResults;
 }
