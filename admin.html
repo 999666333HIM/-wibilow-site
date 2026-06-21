@@ -98,10 +98,47 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 .fulfill-btn.success{background:rgba(61,255,208,0.1);color:var(--cyan);border:1px solid rgba(61,255,208,0.3);}
 .fulfill-btn.danger{background:transparent;color:var(--red);border:1px solid rgba(255,107,107,0.3);}
 .fulfill-btn.danger:hover{background:rgba(255,107,107,0.1);}
+
+/* ADD PRODUCT FORM */
+.add-product-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;}
+.form-card h3{font-size:1rem;font-weight:700;margin-bottom:20px;color:var(--white);}
+.form-group{margin-bottom:16px;}
+.form-label{font-size:0.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;display:block;}
+.form-input{width:100%;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:'Inter',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:var(--blue);}
+.form-input::placeholder{color:var(--muted);}
+select.form-input option{background:var(--surface2);}
+textarea.form-input{resize:vertical;min-height:80px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.preview-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.preview-img{height:200px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:4rem;border-bottom:1px solid var(--border);position:relative;}
+.preview-img img{width:100%;height:100%;object-fit:contain;padding:16px;}
+.preview-body{padding:16px;}
+.preview-name{font-size:0.95rem;font-weight:700;margin-bottom:6px;color:var(--white);}
+.preview-cat{font-size:0.75rem;color:var(--muted);margin-bottom:8px;}
+.preview-price{font-family:'JetBrains Mono',monospace;font-size:1.3rem;color:var(--cyan);font-weight:700;margin-bottom:6px;}
+.preview-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;}
+.add-btn-main{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;transition:background 0.2s;}
+.add-btn-main:hover{background:#388BFD;}
+.add-btn-main:disabled{background:var(--border);cursor:not-allowed;}
+.success-msg{background:rgba(61,255,208,0.1);border:1px solid rgba(61,255,208,0.3);color:var(--cyan);padding:12px 16px;border-radius:8px;font-size:0.88rem;font-weight:600;margin-top:12px;display:none;}
+.error-msg{background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);color:var(--red);padding:12px 16px;border-radius:8px;font-size:0.88rem;font-weight:600;margin-top:12px;display:none;}
+.manual-products-list{margin-top:24px;}
+.manual-product-row{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;}
+.mp-thumb{width:44px;height:44px;border-radius:8px;object-fit:contain;background:var(--surface2);border:1px solid var(--border);flex-shrink:0;}
+.mp-info{flex:1;}
+.mp-name{font-size:0.88rem;font-weight:600;color:var(--white);}
+.mp-meta{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+.mp-price{font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--cyan);font-weight:700;flex-shrink:0;}
+.mp-delete{background:transparent;border:1px solid rgba(255,107,107,0.3);color:var(--red);border-radius:6px;padding:6px 12px;font-size:0.78rem;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
+.mp-delete:hover{background:rgba(255,107,107,0.1);}
+
 @media(max-width:900px){
   .stats-row{grid-template-columns:repeat(2,1fr);}
   #adminScreen{padding:12px;}
   .order-body{grid-template-columns:1fr;}
+  .add-product-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -127,10 +164,12 @@ tr:hover td{background:rgba(255,255,255,0.02);}
   </div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchTab('fulfillment')">🛒 Fulfillment Queue <span class="tab-badge" id="pendingBadge">0</span></div>
-    <div class="tab" onclick="switchTab('catalog')">📦 Product Catalog</div>
+    <div class="tab active" onclick="switchTab('fulfillment')">🛒 Orders <span class="tab-badge" id="pendingBadge">0</span></div>
+    <div class="tab" onclick="switchTab('add')">➕ Add Product</div>
+    <div class="tab" onclick="switchTab('catalog')">📦 Catalog</div>
   </div>
 
+  <!-- FULFILLMENT TAB -->
   <div class="tab-content active" id="tab-fulfillment">
     <div class="stats-row">
       <div class="stat-card"><div class="stat-val" id="statPending">—</div><div class="stat-lbl">Pending orders</div></div>
@@ -148,6 +187,91 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <div id="ordersContainer"><div class="loading">Loading orders…</div></div>
   </div>
 
+  <!-- ADD PRODUCT TAB -->
+  <div class="tab-content" id="tab-add">
+    <div class="add-product-grid">
+      <div>
+        <div class="form-card">
+          <h3>➕ Add Product to Store</h3>
+          <div class="form-group">
+            <label class="form-label">Product Name *</label>
+            <input type="text" class="form-input" id="pName" placeholder="e.g. Sony WH-1000XM5 Headphones" oninput="updatePreview()">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Sell Price ($) *</label>
+              <input type="number" class="form-input" id="pPrice" placeholder="29.99" min="1" step="0.01" oninput="updatePreview()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select class="form-input" id="pCat" onchange="updatePreview()">
+                <option value="Electronics">Electronics</option>
+                <option value="Home">Home</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Beauty">Beauty</option>
+                <option value="Sports">Sports</option>
+                <option value="Pets">Pets</option>
+                <option value="Kids">Kids</option>
+                <option value="Garden">Garden</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Image URL</label>
+            <input type="text" class="form-input" id="pImage" placeholder="https://..." oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Source / Buy Link (where you'll order from)</label>
+            <input type="text" class="form-input" id="pSourceUrl" placeholder="https://amazon.com/... or AliExpress, Walmart, etc.">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-input" id="pDesc" placeholder="Brief product description…" oninput="updatePreview()"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Stock Quantity</label>
+              <input type="number" class="form-input" id="pStock" placeholder="50" min="1" value="50">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Rating (1-5)</label>
+              <input type="number" class="form-input" id="pRating" placeholder="4.5" min="1" max="5" step="0.1" value="4.5">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Cost Price ($) <span style="color:var(--muted);font-weight:400;">(optional, for profit tracking)</span></label>
+            <input type="number" class="form-input" id="pCost" placeholder="12.00" min="0" step="0.01">
+          </div>
+          <button class="add-btn-main" id="addProductBtn" onclick="addProduct()">Add to Store →</button>
+          <div class="success-msg" id="successMsg">✓ Product added successfully! It's now live on your store.</div>
+          <div class="error-msg" id="errorMsg"></div>
+        </div>
+
+        <!-- MANUAL PRODUCTS LIST -->
+        <div class="manual-products-list">
+          <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:12px;">Your manual products</div>
+          <div id="manualProductsList"><div style="color:var(--muted);font-size:0.85rem;">No manual products added yet.</div></div>
+        </div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div>
+        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:12px;">Live preview</div>
+        <div class="preview-card">
+          <div class="preview-img" id="previewImg">🛍️</div>
+          <div class="preview-body">
+            <div class="preview-name" id="previewName">Product name will appear here</div>
+            <div class="preview-cat" id="previewCat">Electronics</div>
+            <div class="preview-price" id="previewPrice">$0.00</div>
+            <div class="preview-desc" id="previewDesc">Product description will appear here.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATALOG TAB -->
   <div class="tab-content" id="tab-catalog">
     <div class="stats-row">
       <div class="stat-card"><div class="stat-val" id="statTotal">—</div><div class="stat-lbl">Total products</div></div>
@@ -189,7 +313,8 @@ const CATALOG_URL='https://raw.githubusercontent.com/999666333HIM/-wibilow-site/
 const ORDERS_URL='https://raw.githubusercontent.com/999666333HIM/-wibilow-site/refs/heads/main/orders.json';
 const CJ_URL='https://app.cjdropshipping.com/product/detail.html?pid=';
 const AVG_SHIPPING=6;
-let allProducts=[],allOrders=[];
+const GITHUB_TOKEN_KEY='wb_gh_token';
+let allProducts=[],allOrders=[],manualProducts=[];
 
 function login(){
   const pw=document.getElementById('passwordInput').value;
@@ -197,6 +322,7 @@ function login(){
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('adminScreen').style.display='block';
     loadAll();
+    loadManualProducts();
   }else{document.getElementById('loginError').style.display='block';}
 }
 document.getElementById('passwordInput').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
@@ -206,11 +332,148 @@ function logout(){
   document.getElementById('passwordInput').value='';
 }
 function switchTab(name){
-  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['fulfillment','catalog'][i]===name);});
-  document.querySelectorAll('.tab-content').forEach(c=>{c.classList.toggle('active',c.id===`tab-${name}`);});
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['fulfillment','add','catalog'][i]===name);});
+  document.querySelectorAll('.tab-content').forEach(c=>{c.classList.toggle('active',c.id==='tab-'+name);});
 }
 async function loadAll(){await Promise.all([loadOrders(),loadCatalog()]);}
 
+// ── PREVIEW ──
+function updatePreview(){
+  const name=document.getElementById('pName').value||'Product name will appear here';
+  const price=parseFloat(document.getElementById('pPrice').value)||0;
+  const cat=document.getElementById('pCat').value||'Electronics';
+  const image=document.getElementById('pImage').value;
+  const desc=document.getElementById('pDesc').value||'Product description will appear here.';
+  document.getElementById('previewName').textContent=name;
+  document.getElementById('previewCat').textContent=cat;
+  document.getElementById('previewPrice').textContent='$'+price.toFixed(2);
+  document.getElementById('previewDesc').textContent=desc;
+  const imgEl=document.getElementById('previewImg');
+  if(image){
+    imgEl.innerHTML='<img src="'+image+'" alt="" style="width:100%;height:100%;object-fit:contain;padding:16px;" onerror="this.parentElement.innerHTML=\'🛍️\'">';
+  }else{
+    imgEl.innerHTML='🛍️';
+  }
+}
+
+// ── ADD PRODUCT ──
+async function addProduct(){
+  const btn=document.getElementById('addProductBtn');
+  const successMsg=document.getElementById('successMsg');
+  const errorMsg=document.getElementById('errorMsg');
+  successMsg.style.display='none';
+  errorMsg.style.display='none';
+
+  const name=document.getElementById('pName').value.trim();
+  const price=parseFloat(document.getElementById('pPrice').value);
+  const cat=document.getElementById('pCat').value;
+  const image=document.getElementById('pImage').value.trim();
+  const sourceUrl=document.getElementById('pSourceUrl').value.trim();
+  const desc=document.getElementById('pDesc').value.trim();
+  const stock=parseInt(document.getElementById('pStock').value)||50;
+  const rating=parseFloat(document.getElementById('pRating').value)||4.5;
+  const cost=parseFloat(document.getElementById('pCost').value)||0;
+
+  if(!name){errorMsg.textContent='Please enter a product name.';errorMsg.style.display='block';return;}
+  if(!price||price<=0){errorMsg.textContent='Please enter a valid price.';errorMsg.style.display='block';return;}
+
+  btn.textContent='Adding…';btn.disabled=true;
+
+  const product={
+    id:'manual-'+Date.now(),
+    name,
+    cat,
+    icon:'🛍️',
+    displayPrice:Math.round(price*100)/100,
+    rating,
+    reviews:Math.floor(Math.random()*5000)+100,
+    hot:false,
+    desc:desc||'Shipped direct to your door.',
+    thumbnail:image||null,
+    stock,
+    aliUrl:sourceUrl||null,
+    cost:cost||null,
+    manual:true,
+    lastUpdated:new Date().toISOString(),
+  };
+
+  try{
+    // Save to catalog.json via add-product function
+    const res = await fetch('/api/add-product',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({product}),
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error||'Failed to add product');
+
+    // Save locally too
+    manualProducts.unshift(product);
+    localStorage.setItem('wb_manual_products', JSON.stringify(manualProducts));
+    renderManualProducts();
+
+    // Reset form
+    document.getElementById('pName').value='';
+    document.getElementById('pPrice').value='';
+    document.getElementById('pImage').value='';
+    document.getElementById('pSourceUrl').value='';
+    document.getElementById('pDesc').value='';
+    document.getElementById('pStock').value='50';
+    document.getElementById('pRating').value='4.5';
+    document.getElementById('pCost').value='';
+    updatePreview();
+
+    successMsg.style.display='block';
+    setTimeout(()=>successMsg.style.display='none',4000);
+  }catch(err){
+    errorMsg.textContent='Error: '+err.message;
+    errorMsg.style.display='block';
+  }
+
+  btn.textContent='Add to Store →';btn.disabled=false;
+}
+
+function loadManualProducts(){
+  manualProducts=JSON.parse(localStorage.getItem('wb_manual_products')||'[]');
+  renderManualProducts();
+}
+
+function renderManualProducts(){
+  const container=document.getElementById('manualProductsList');
+  if(!manualProducts.length){
+    container.innerHTML='<div style="color:var(--muted);font-size:0.85rem;">No manual products added yet.</div>';
+    return;
+  }
+  container.innerHTML=manualProducts.map((p,i)=>`
+    <div class="manual-product-row">
+      ${p.thumbnail
+        ?'<img src="'+p.thumbnail+'" class="mp-thumb" alt="">'
+        :'<div class="mp-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;">'+p.icon+'</div>'}
+      <div class="mp-info">
+        <div class="mp-name">${p.name}</div>
+        <div class="mp-meta">${p.cat} · Stock: ${p.stock} · ${p.aliUrl?'<a href="'+p.aliUrl+'" target="_blank" style="color:var(--blue);">Source ↗</a>':'No source link'}</div>
+      </div>
+      <div class="mp-price">$${p.displayPrice}</div>
+      <button class="mp-delete" onclick="deleteManualProduct(${i})">Remove</button>
+    </div>`).join('');
+}
+
+async function deleteManualProduct(index){
+  if(!confirm('Remove this product from your store?')) return;
+  const product = manualProducts[index];
+  try{
+    await fetch('/api/add-product',{
+      method:'DELETE',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({productId:product.id}),
+    });
+  }catch(e){}
+  manualProducts.splice(index,1);
+  localStorage.setItem('wb_manual_products',JSON.stringify(manualProducts));
+  renderManualProducts();
+}
+
+// ── ORDERS ──
 async function loadOrders(){
   try{
     const res=await fetch(ORDERS_URL+'?t='+Date.now());
@@ -244,56 +507,20 @@ function renderOrders(){
     return true;
   });
   if(!orders.length){
-    container.innerHTML=`<div class="empty"><div style="font-size:2.5rem;margin-bottom:12px;">📭</div><p style="font-weight:600;color:var(--muted);">No orders yet.<br>They'll appear here the moment someone buys.</p></div>`;
+    container.innerHTML='<div class="empty"><div style="font-size:2.5rem;margin-bottom:12px;">📭</div><p style="font-weight:600;color:var(--muted);">No orders yet.<br>They\'ll appear here the moment someone buys.</p></div>';
     return;
   }
   container.innerHTML=orders.map(order=>{
     const isFulfilled=!!f[order.id];
     const addr=order.buyer?.address;
-    const addrLines=[order.buyer?.name,addr?.line1,addr?.line2,`${addr?.city}, ${addr?.state} ${addr?.zip}`,addr?.country].filter(Boolean);
-    const itemsHtml=(order.items||[]).map(item=>`
-      <div class="order-item">
-        <div class="order-item-name" title="${item.name}">${item.name}</div>
-        <div class="order-item-price">$${item.price}</div>
-      </div>`).join('');
+    const addrLines=[order.buyer?.name,addr?.line1,addr?.line2,addr?.city+', '+addr?.state+' '+addr?.zip,addr?.country].filter(Boolean);
+    const itemsHtml=(order.items||[]).map(item=>'<div class="order-item"><div class="order-item-name" title="'+item.name+'">'+item.name+'</div><div class="order-item-price">$'+item.price+'</div></div>').join('');
     const sourceLinks=(order.items||[]).map(item=>{
-      if(item.aliUrl) return `<a href="${item.aliUrl}" target="_blank" class="fulfill-btn primary">🛒 Buy on AliExpress ↗</a>`;
-      if(item.cjPid) return `<a href="${CJ_URL}${item.cjPid}" target="_blank" class="fulfill-btn primary">🛒 Buy on CJ ↗</a>`;
-      return `<span style="color:var(--muted);font-size:0.82rem;">No source link</span>`;
+      if(item.aliUrl) return '<a href="'+item.aliUrl+'" target="_blank" class="fulfill-btn primary">🛒 Buy on AliExpress ↗</a>';
+      if(item.cjPid) return '<a href="'+CJ_URL+item.cjPid+'" target="_blank" class="fulfill-btn primary">🛒 Buy on CJ ↗</a>';
+      return '<span style="color:var(--muted);font-size:0.82rem;">No source link</span>';
     }).join('');
-    return `
-      <div class="order-card ${isFulfilled?'fulfilled':''}">
-        <div class="order-top">
-          <div>
-            <div class="order-id">${order.id}</div>
-            <div class="order-date">${new Date(order.createdAt).toLocaleString()}</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="order-total">$${order.total}</div>
-            <span class="order-status ${isFulfilled?'status-fulfilled':'status-pending'}">${isFulfilled?'✓ Fulfilled':'⏳ Pending'}</span>
-          </div>
-        </div>
-        <div class="order-body">
-          <div>
-            <div class="order-section-title">Ship to</div>
-            <div class="address-box">
-              <button class="address-copy-btn" onclick="copyAddr('${order.id}',this)">Copy</button>
-              ${addrLines.join('<br>')}
-              ${order.buyer?.email?`<br><span style="color:var(--muted);font-size:0.8rem;">${order.buyer.email}</span>`:''}
-            </div>
-          </div>
-          <div>
-            <div class="order-section-title">Items ordered</div>
-            <div class="order-items">${itemsHtml}</div>
-          </div>
-        </div>
-        <div class="order-actions">
-          ${sourceLinks}
-          ${!isFulfilled
-            ?`<button class="fulfill-btn success" onclick="markFulfilled('${order.id}')">✓ Mark as Fulfilled</button>`
-            :`<button class="fulfill-btn danger" onclick="markPending('${order.id}')">↩ Mark as Pending</button>`}
-        </div>
-      </div>`;
+    return '<div class="order-card '+(isFulfilled?'fulfilled':'')+'"><div class="order-top"><div><div class="order-id">'+order.id+'</div><div class="order-date">'+new Date(order.createdAt).toLocaleString()+'</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="order-total">$'+order.total+'</div><span class="order-status '+(isFulfilled?'status-fulfilled':'status-pending')+'">'+(isFulfilled?'✓ Fulfilled':'⏳ Pending')+'</span></div></div><div class="order-body"><div><div class="order-section-title">Ship to</div><div class="address-box"><button class="address-copy-btn" onclick="copyAddr(\''+order.id+'\',this)">Copy</button>'+addrLines.join('<br>')+(order.buyer?.email?'<br><span style="color:var(--muted);font-size:0.8rem;">'+order.buyer.email+'</span>':'')+'</div></div><div><div class="order-section-title">Items ordered</div><div class="order-items">'+itemsHtml+'</div></div></div><div class="order-actions">'+sourceLinks+(isFulfilled?'<button class="fulfill-btn danger" onclick="markPending(\''+order.id+'\')">↩ Mark as Pending</button>':'<button class="fulfill-btn success" onclick="markFulfilled(\''+order.id+'\')">✓ Mark as Fulfilled</button>')+'</div></div>';
   }).join('');
 }
 
@@ -301,26 +528,23 @@ function copyAddr(orderId,btn){
   const order=allOrders.find(o=>o.id===orderId);
   if(!order) return;
   const addr=order.buyer?.address;
-  const text=[order.buyer?.name,addr?.line1,addr?.line2,`${addr?.city}, ${addr?.state} ${addr?.zip}`,addr?.country,order.buyer?.email].filter(Boolean).join('\n');
+  const text=[order.buyer?.name,addr?.line1,addr?.line2,addr?.city+', '+addr?.state+' '+addr?.zip,addr?.country,order.buyer?.email].filter(Boolean).join('\n');
   navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000);});
 }
-
 function markFulfilled(id){
   if(!confirm('Mark this order as fulfilled? This means you have placed the order with the supplier.')) return;
   const f=JSON.parse(localStorage.getItem('wibilow_fulfilled')||'{}');
-  f[id]=Date.now();
-  localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
+  f[id]=Date.now();localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
   updateOrderStats();renderOrders();
 }
-
 function markPending(id){
   if(!confirm('Move this back to pending? This will mark it as unfulfilled again.')) return;
   const f=JSON.parse(localStorage.getItem('wibilow_fulfilled')||'{}');
-  delete f[id];
-  localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
+  delete f[id];localStorage.setItem('wibilow_fulfilled',JSON.stringify(f));
   updateOrderStats();renderOrders();
 }
 
+// ── CATALOG ──
 async function loadCatalog(){
   try{
     const res=await fetch(CATALOG_URL+'?t='+Date.now());
@@ -382,25 +606,7 @@ function renderTable(){
     const sc=(p.stock||0)<5?'stock-low':'stock-high';
     const cost=estimateCost(p.displayPrice);
     const tr=document.createElement('tr');
-    tr.innerHTML=`
-      <td>
-        <div style="display:flex;align-items:center;gap:10px;">
-          ${p.thumbnail?`<img src="${p.thumbnail}" class="product-thumb" alt="">`:
-            `<div class="product-thumb-placeholder">${p.icon||'🛍️'}</div>`}
-          <div>
-            <div class="product-name" title="${p.name}">${p.name}</div>
-            <div class="product-cat">${p.cat} ${p.hot?'<span class="hot-badge">HOT</span>':''}</div>
-          </div>
-        </div>
-      </td>
-      <td><span class="price-sell mono">$${p.displayPrice}</span></td>
-      <td><span class="price-cost mono">~$${cost} + $${AVG_SHIPPING} ship</span></td>
-      <td><span class="profit ${pc} mono">${profit>0?'+':''}$${profit}</span></td>
-      <td><span class="stock-badge ${sc}">${p.stock||'?'} left</span></td>
-      <td><span style="font-size:0.75rem;color:var(--muted);">${p.aliUrl?'AliExpress':p.cjPid?'CJ':'Unknown'}</span></td>
-      <td>${p.aliUrl?`<a href="${p.aliUrl}" target="_blank" class="ext-link">View ↗</a>`:
-        p.cjPid?`<a href="${CJ_URL}${p.cjPid}" target="_blank" class="ext-link">View ↗</a>`:
-        '<span style="color:var(--muted);font-size:0.78rem;">No link</span>'}</td>`;
+    tr.innerHTML='<td><div style="display:flex;align-items:center;gap:10px;">'+(p.thumbnail?'<img src="'+p.thumbnail+'" class="product-thumb" alt="">':'<div class="product-thumb-placeholder">'+(p.icon||'🛍️')+'</div>')+'<div><div class="product-name" title="'+p.name+'">'+p.name+'</div><div class="product-cat">'+p.cat+(p.hot?' <span class="hot-badge">HOT</span>':'')+'</div></div></div></td><td><span class="price-sell mono">$'+p.displayPrice+'</span></td><td><span class="price-cost mono">~$'+cost+' + $'+AVG_SHIPPING+' ship</span></td><td><span class="profit '+pc+' mono">'+(profit>0?'+':'')+'$'+profit+'</span></td><td><span class="stock-badge '+sc+'">'+(p.stock||'?')+' left</span></td><td><span style="font-size:0.75rem;color:var(--muted);">'+(p.manual?'Manual':p.aliUrl?'AliExpress':p.cjPid?'CJ':'Unknown')+'</span></td><td>'+(p.aliUrl?'<a href="'+p.aliUrl+'" target="_blank" class="ext-link">View ↗</a>':p.cjPid?'<a href="'+CJ_URL+p.cjPid+'" target="_blank" class="ext-link">View ↗</a>':'<span style="color:var(--muted);font-size:0.78rem;">No link</span>')+'</td>';
     tbody.appendChild(tr);
   });
 }
