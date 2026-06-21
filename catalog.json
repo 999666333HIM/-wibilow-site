@@ -2,6 +2,23 @@
   "__runIndex": 10,
   "__manual": [
     {
+      "id": "manual-1782050251657",
+      "name": "Xbox Series X 1TB Console",
+      "cat": "Electronics",
+      "icon": "🛍️",
+      "displayPrice": 689.99,
+      "rating": 4.9,
+      "reviews": 4191,
+      "hot": false,
+      "desc": "Xbox Series X 1TB Console with Xbox Wireless Controller - 4K Gaming - 120FPS",
+      "thumbnail": "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/610788c6-f422-4e44-89d4-b0dd5563604e.jpg;maxHeight=1920;maxWidth=900?format=webp",
+      "stock": 5,
+      "aliUrl": "https://www.bestbuy.com/product/xbox-series-x-1tb-console-with-xbox-wireless-controller-4k-gaming-120fps/J3ZKK5X72V",
+      "cost": 689.99,
+      "manual": true,
+      "lastUpdated": "2026-06-21T13:57:31.657Z"
+    },
+    {
       "id": "manual-1782046125635",
       "name": "Sony Playstation 5 Slim Console",
       "cat": "General",
