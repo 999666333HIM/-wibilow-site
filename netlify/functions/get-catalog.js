@@ -64,7 +64,7 @@ cost: item.cost||null,
 }
     return {
       statusCode: 200,
-      headers: { 'Cache-Control': 'public, max-age=300' },
+      headers: { 'Cache-Control': 'no-cache' },
       body: JSON.stringify({ products: allProducts }),
     };
   } catch (err) {
