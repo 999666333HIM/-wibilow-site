@@ -47,6 +47,7 @@ if(catalog.__manual && Array.isArray(catalog.__manual)){
       id: item.id,
       name: item.name,
       cat: item.cat,
+cost: item.cost||null,
       icon: item.icon || '🛍️',
       price: item.displayPrice,
       rating: item.rating,

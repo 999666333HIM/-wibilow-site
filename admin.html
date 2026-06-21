@@ -629,10 +629,12 @@ function renderTable(){
   document.getElementById('emptyMsg').style.display='none';
   document.getElementById('productTable').style.display='table';
   list.forEach(p=>{
-    const profit=parseFloat(estimateProfit(p.displayPrice));
-    const pc=profit>5?'good':profit>0?'ok':'bad';
-    const sc=(p.stock||0)<5?'stock-low':'stock-high';
-    const cost=estimateCost(p.displayPrice);
+    const cost = p.cost ? p.cost.toFixed(2) : estimateCost(p.displayPrice);
+const profit = p.cost
+  ? (p.displayPrice - p.cost - (p.displayPrice*0.029+0.30)).toFixed(2)
+  : estimateProfit(p.displayPrice);
+const pc=parseFloat(profit)>5?'good':parseFloat(profit)>0?'ok':'bad';
+const sc=(p.stock||0)<5?'stock-low':'stock-high';
     const tr=document.createElement('tr');
     tr.innerHTML='<td><div style="display:flex;align-items:center;gap:10px;">'+(p.thumbnail?'<img src="'+p.thumbnail+'" class="product-thumb" alt="">':'<div class="product-thumb-placeholder">'+(p.icon||'🛍️')+'</div>')+'<div><div class="product-name" title="'+p.name+'">'+p.name+'</div><div class="product-cat">'+p.cat+(p.hot?' <span class="hot-badge">HOT</span>':'')+'</div></div></div></td><td><span class="price-sell mono">$'+p.displayPrice+'</span></td><td><span class="price-cost mono">~$'+cost+' + $'+AVG_SHIPPING+' ship</span></td><td><span class="profit '+pc+' mono">'+(profit>0?'+':'')+'$'+profit+'</span></td><td><span class="stock-badge '+sc+'">'+(p.stock||'?')+' left</span></td><td><span style="font-size:0.75rem;color:var(--muted);">'+(p.manual?'Manual':p.aliUrl?'AliExpress':p.cjPid?'CJ':'Unknown')+'</span></td><td>'+(p.aliUrl?'<a href="'+p.aliUrl+'" target="_blank" class="ext-link">View ↗</a>':p.cjPid?'<a href="'+CJ_URL+p.cjPid+'" target="_blank" class="ext-link">View ↗</a>':'<span style="color:var(--muted);font-size:0.78rem;">No link</span>')+'</td>';
     tbody.appendChild(tr);
