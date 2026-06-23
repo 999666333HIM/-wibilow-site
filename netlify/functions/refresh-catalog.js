@@ -152,7 +152,7 @@ async function saveCatalogFile(newContent, sha){
   return githubRequest('contents/' + GITHUB_FILE_PATH,{method:'PUT',body:JSON.stringify(body)});
 }
 
-function processItem(item, term, i){
+function processItem(item, term, i, existingIds){
   const rawPrice = parseFloat(item.sku?.def?.promotionPrice || item.promotionPrice || item.price || 0);
   const displayPrice = markupPrice(rawPrice);
   if(displayPrice < 8 || rawPrice === 0) return null;
@@ -202,7 +202,7 @@ exports.handler = async function(){
 const existingIds = new Set((catalog[term]||[]).map(p=>p.id.split('-')[1]));
 catalog[term] = results.slice(0,40).map((entry,i)=>{
         const item = entry.item || entry;
-        return processItem(item, term, i);
+        return processItem(item, term, i, existingIds);
       }).filter(Boolean);
       summary[term] = catalog[term].length;
     }
