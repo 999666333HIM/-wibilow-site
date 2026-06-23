@@ -156,8 +156,9 @@ function processItem(item, term, i){
   const rawPrice = parseFloat(item.sku?.def?.promotionPrice || item.promotionPrice || item.price || 0);
   const displayPrice = markupPrice(rawPrice);
   if(displayPrice < 8 || rawPrice === 0) return null;
-  return {
-    id:'ae-' + (item.itemId||i) + '-' + Date.now(),
+  if(existingIds.has(String(item.itemId))) return null;
+return {
+  id:'ae-' + (item.itemId||i) + '-' + Date.now(),
     name:item.title||term,
     cat:pickCat(term),
     icon:pickEmoji(term),
@@ -193,10 +194,13 @@ exports.handler = async function(){
       const results = await searchAliExpress(term);
       console.log('Term:', term, 'Results:', results.length);
       if(!results.length){
-        summary[term] = 0;
-        continue;
-      }
-      catalog[term] = results.slice(0,40).map((entry,i)=>{
+  // Keep existing products for this term, don't wipe them
+  summary[term] = catalog[term]?.length || 0;
+  continue;
+}
+// Only update if we got new results
+const existingIds = new Set((catalog[term]||[]).map(p=>p.id.split('-')[1]));
+catalog[term] = results.slice(0,40).map((entry,i)=>{
         const item = entry.item || entry;
         return processItem(item, term, i);
       }).filter(Boolean);
